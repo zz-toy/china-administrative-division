@@ -1,1 +1,6 @@
-.idea
+*.pyc
+*.swp
+storage/
+__pycache__/
+.idea/
+.vscode/
