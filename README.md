@@ -11,9 +11,9 @@
 - 国家统计局
     - [中华人民共和国国家统计局-统计用区划和城乡划分代码](https://www.stats.gov.cn/sj/tjbz/qhdm/)
     - [中华人民共和国国家统计局-统计用区划代码和城乡划分代码编制规则](https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902741.html)
-- [百度地图](https://lbsyun.baidu.com/faq/api?title=webapi/download)
 - 本项目已更新至
     - [2023年统计用区划代码和城乡划分代码（截止时间：2023-06-30，发布时间：2023-09-11）](https://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html)
+- [参考百度地图](https://lbsyun.baidu.com/faq/api?title=webapi/download)
 
 ## 数据库支持
 目前本项目数据保存在 sqlite3，数据文件下载：data.sqlite。
@@ -21,7 +21,7 @@
 可以按需将数据迁移到其他数据库管理系统中（MySQL, Oracle, MSSQL 等）。
 
 ## 数据下载
-- 单级别数据
+- 单独级别数据
 
 | 文件列表 | JSON |	CSV |
 |---|---|---|
