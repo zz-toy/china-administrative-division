@@ -7,3 +7,11 @@ help:
 
 test:
 	@echo "test ..."
+	echo $(conda info --base)
+
+.PHONY: activate create-requirements
+activate:
+	@echo "conda activate china-administrative-division"
+
+create-requirements:
+	@conda list -e > requirements.txt
