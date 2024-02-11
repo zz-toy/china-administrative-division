@@ -16,9 +16,9 @@
 - [参考百度地图](https://lbsyun.baidu.com/faq/api?title=webapi/download)
 
 ## 数据库支持
-目前本项目数据保存在 sqlite3，数据文件下载：data.sqlite。
+目前本项目数据保存在 Mysql ，数据文件下载：govstat.sql。
 
-可以按需将数据迁移到其他数据库管理系统中（MySQL, Oracle, MSSQL 等）。
+可以按需将数据迁移到其他数据库管理系统中（Sqlite, Oracle, MSSQL 等）。
 
 ## 数据下载
 - 单独级别数据
