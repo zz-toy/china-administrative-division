@@ -8,11 +8,8 @@ help:
 test:
 	@echo "test ..."
 
-.PHONY:	push create-api
+.PHONY:	push
 push:
 	@git add .
 	git commit -m "脚本自动push"
 	git push origin main
-
-create-api:
-	@goctl api new alice

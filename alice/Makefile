@@ -13,10 +13,12 @@ help:
 test:
 	@echo "test ..."
 
-.PHONY:	dev
+.PHONY:	dev create-api
 dev:
 	@${GO} run ${MAIN_GO_FILE} -f etc/alice-api.yaml
 	@echo "Dev start ..."
+create-api:
+	@goctl api new alice
 
 .PHONY: api gen-zero-model
 gen-zero-model:
