@@ -1,0 +1,44 @@
+syntax = "v1"
+
+import "base.api"
+
+type CountyListRequest {
+	ProvinceName string `form:"province_name,optional"`
+	CityName     string `form:"city_name,optional"`
+	Name         string `form:"name,optional"`
+	ProvinceId   int64  `form:"province_id,optional"`
+	CityId       int64  `form:"city_id,optional"`
+}
+
+type CountyInfo {
+	Id           int64  `json:"id"`
+	Name         string `json:"name"`
+	Code         string `json:"code"`
+	ProvinceId   int64  `json:"province_id"`
+	ProvinceName string `json:"province_name"`
+	ProvinceCode string `json:"province_code"`
+	ProvinceUrl  string `json:"province_url"`
+	CityId       int64  `json:"city_id"`
+	CityName     string `json:"city_name"`
+	CityCode     string `json:"city_code"`
+	CityUrl      string `json:"city_url"`
+	Url          string `json:"url"`
+	ChildUrl     string `json:"child_url"`
+	CreatedAt    string `json:"created_at"`
+	UpdatedAt    string `json:"updated_at"`
+}
+
+type CountyListResponse {
+	BaseResponse
+	Data []CountyInfo `json:"data"`
+}
+
+@server (
+	prefix: /county
+	group:  county
+)
+service alice-api {
+	@doc "区县 列表"
+	@handler list
+	get /list (CountyListRequest) returns (CountyListResponse)
+}

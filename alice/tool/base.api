@@ -1,0 +1,9 @@
+syntax = "v1"
+
+type (
+	BaseResponse {
+		Code int    `json:"code"`
+		Time string `json:"time"`
+		Msg  string `json:"msg"`
+	}
+)

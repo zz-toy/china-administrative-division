@@ -1,0 +1,14 @@
+syntax = "v1"
+
+import (
+	"base.api"
+	"province.api"
+	"city.api"
+	"county.api"
+)
+
+info (
+	author: "仔仔"
+	date:   "2024-02-10"
+	desc:   "alice-api"
+)

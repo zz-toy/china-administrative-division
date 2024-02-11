@@ -11,7 +11,7 @@ CREATE TABLE `province` (
   `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `url` varchar(200) NOT NULL DEFAULT '' COMMENT '被抓取的url',
   `child_url` varchar(200) NOT NULL DEFAULT '' COMMENT '指向的子url',
-  `is_municipality` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是不是直辖市:1-是;0-否',
+  `is_municipality` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是不是直辖市:1-是;0-否',
   `creator` varchar(32) NOT NULL DEFAULT '' COMMENT '创建者',
   `updater` varchar(32) NOT NULL DEFAULT '' COMMENT '更新者',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -56,7 +56,7 @@ CREATE TABLE `county` (
 DROP TABLE IF EXISTS `town` ;
 CREATE TABLE `town` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '城镇名称',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '乡镇名称',
   `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `province_id` int(11) NOT NULL DEFAULT '0' COMMENT 'province表id字段',
   `city_id` int(11) NOT NULL DEFAULT '0' COMMENT 'city表id字段',
@@ -69,7 +69,7 @@ CREATE TABLE `town` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   `data_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='城镇表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='乡镇表';
 
 DROP TABLE IF EXISTS `village` ;
 CREATE TABLE `village` (

@@ -1,0 +1,38 @@
+syntax = "v1"
+
+import "base.api"
+
+type CityListRequest {
+	ProvinceName string `form:"province_name,optional"`
+	ProvinceId   int64  `form:"province_id,optional"`
+	Name         string `form:"name,optional"`
+}
+
+type CityInfo {
+	Id           int64  `json:"id"`
+	Name         string `json:"name"`
+	Code         string `json:"code"`
+	ProvinceId   int64  `json:"province_id"`
+	ProvinceName string `json:"province_name"`
+	ProvinceCode string `json:"province_code"`
+	ProvinceUrl  string `json:"province_url"`
+	Url          string `json:"url"`
+	ChildUrl     string `json:"child_url"`
+	CreatedAt    string `json:"created_at"`
+	UpdatedAt    string `json:"updated_at"`
+}
+
+type CityListResponse {
+	BaseResponse
+	Data []CityInfo `json:"data"`
+}
+
+@server (
+	prefix: /city
+	group:  city
+)
+service alice-api {
+	@doc "城市 列表"
+	@handler list
+	get /list (CityListRequest) returns (CityListResponse)
+}

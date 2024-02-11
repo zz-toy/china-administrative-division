@@ -1,0 +1,19 @@
+Name: alice-api
+Host: 0.0.0.0
+Port: 6800
+Timeout: 15000
+Stat: true
+KeepDays: 15
+DevServer:
+  Enabled: false
+  Port: 7001
+  HealthPath: /health
+Mysql:
+  Datasource: "root:123456@tcp(192.168.200.253:3400)/govstat?charset=utf8mb4&parseTime=True&loc=Local"
+
+Log:
+  ServiceName: alice-api
+  Mode: file
+  Path: logs
+  TimeFormat: 2006-01-02 15:04:05
+  Level: info
