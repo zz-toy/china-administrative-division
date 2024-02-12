@@ -14,7 +14,8 @@ const TableNameProvince = "province"
 type Province struct {
 	ID             int64      `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id"`
 	Name           string     `gorm:"column:name;type:varchar(50);not null;comment:省名称" json:"name"`                                                  // 省名称
-	Code           string     `gorm:"column:code;type:varchar(20);not null;comment:统计用区划代码" json:"code"`                                              // 统计用区划代码
+	Code           string     `gorm:"column:code;type:varchar(20);not null;comment:省级代码" json:"code"`                                                 // 省级代码
+	FullCode       string     `gorm:"column:full_code;type:varchar(20);not null;comment:统计用区划代码" json:"full_code"`                                    // 统计用区划代码
 	URL            string     `gorm:"column:url;type:varchar(200);not null;comment:被抓取的url" json:"url"`                                               // 被抓取的url
 	ChildURL       string     `gorm:"column:child_url;type:varchar(200);not null;comment:指向的子url" json:"child_url"`                                   // 指向的子url
 	IsMunicipality bool       `gorm:"column:is_municipality;type:tinyint(1);not null;comment:是不是直辖市:1-是;0-否" json:"is_municipality"`                  // 是不是直辖市:1-是;0-否

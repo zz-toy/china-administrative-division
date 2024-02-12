@@ -1,13 +1,14 @@
 <script setup>
 import { reactive,onMounted } from 'vue'
 import axios from 'axios'
-import { rebuildTree, getCityListApiUrl, saveFile } from '../utils';
+import { getCityTree, getCityListApiUrl, saveJsonFile } from '../utils';
 
 const dataSource = reactive({
   options: [],
   value: [],
   selectedText: "",
-  cityCount: 0
+  cityCount: 0,
+  apiData: []
 })
 
 const cascaderProps = {
@@ -21,9 +22,12 @@ onMounted(async () => {
 const init = async () => {
   const res = await axios.get(getCityListApiUrl())
   const data = res.data.data
-  if (data && Array.isArray(data)) {
-    dataSource.options = rebuildTree(data)
+  if (data && Array.isArray(data) && data.length > 0) {
+    dataSource.apiData = data
+    dataSource.options = getCityTree(data)
     dataSource.cityCount = dataSource.options.length
+  } else {
+    dataSource.apiData = []
   }
 }
 
@@ -36,7 +40,7 @@ const handleChange = (value) => {
 }
 
 const handleExportJsonFile = () => {
-  saveFile(dataSource.options, "province.json")
+  saveJsonFile(dataSource.options, "province.json")
 }
 
 
@@ -47,8 +51,11 @@ const handleExportJsonFile = () => {
     <template #header>
       <div class="card-header">
         <span>城市列表</span>
+        <div>
+          <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
         <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
-        <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
+        </div>
+        
       </div>
     </template>
     <el-cascader clearable placeholder="请选择" style="width: 400px;"

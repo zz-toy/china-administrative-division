@@ -1,6 +1,6 @@
 // 单级别数据 ====================================================
 
-export const getProvinceTree = (list = []) => {
+export const getZnProvinceTree = (list = []) => {
     if (!list || !Array.isArray(list) || list.length === 0) {
         return []
     }
@@ -11,54 +11,21 @@ export const getProvinceTree = (list = []) => {
         provinceList.push({
             label: province.name,
             value: province.name,
-            code: province.code,
         })
     })
 
-    return provinceList
-}
-
-export const getCityTree = (list = []) => {
-    if (!list || !Array.isArray(list) || list.length === 0) {
-        return []
+    const res = {
+        errcode:200,
+        errmsg:"请求成功",
+        data: provinceList
     }
 
-    const cityList = []
-
-    list.forEach((city) => {
-        cityList.push({
-            label: city.name,
-            value: city.name,
-            code: city.code,
-            province_code: city.province_code,
-        })
-    })
-
-    return cityList
+    return res
 }
 
-export const getCountyTree = (list = []) => {
-    if (!list || !Array.isArray(list) || list.length === 0) {
-        return []
-    }
+// 级联数据 ====================================================
 
-    const countyList = []
-
-    list.forEach((county) => {
-        countyList.push({
-            label: county.name,
-            value: county.name,
-            code: county.code,
-            city_code: county.city_code,
-            province_code: county.province_code,
-        })
-    })
-
-    return countyList
-}
-
-// 级联数据
-export const cascadeTree = (list = []) => {
+export const znCascadeTree = (list = []) => {
     if (!list || !Array.isArray(list) || list.length === 0) {
         return []
     }
@@ -66,10 +33,7 @@ export const cascadeTree = (list = []) => {
     const provinceList = []
     const cityList = []
     const countyList = []
-    const townList = []
-    const villageList = []
 
-    // 递归每一层，平铺成 list
     list.forEach((province) => {
         provinceList.push({
             id: province.id,
@@ -122,7 +86,6 @@ export const cascadeTree = (list = []) => {
         return []
     }
 
-    // 组装新的结构
     const cityIdToCountyMap = {}
     if (countyList.length > 0) {
         countyList.forEach((county) => {
@@ -133,7 +96,6 @@ export const cascadeTree = (list = []) => {
             const _county = {
                 label: county.name,
                 value: county.name,
-                code: county.code,
                 children: []
             }
 
@@ -156,7 +118,6 @@ export const cascadeTree = (list = []) => {
             const _city = {
                 label: city.name,
                 value: city.name,
-                code: city.code,
                 children: []
             }
             
@@ -172,12 +133,11 @@ export const cascadeTree = (list = []) => {
         })
     }
 
-    const res = []
+    const cascaderList = []
     provinceList.forEach((province) => {
         const _province = {
             label: province.name,
             value: province.name,
-            code: province.code,
             children: []
         }
 
@@ -189,9 +149,14 @@ export const cascadeTree = (list = []) => {
             delete _province.children
         }
 
-        res.push(_province)
+        cascaderList.push(_province)
     })
 
+    const res = {
+        errcode:200,
+        errmsg:"请求成功",
+        data: cascaderList
+    }
 
     return res
 }

@@ -44,6 +44,7 @@ func (l *ListLogic) List(req *types.ProvinceListRequest) (resp *types.ProvinceLi
 			Id:             v.ID,
 			Name:           v.Name,
 			Code:           v.Code,
+			FullCode:       v.FullCode,
 			Url:            v.URL,
 			IsMunicipality: v.IsMunicipality,
 			ChildUrl:       v.ChildURL,

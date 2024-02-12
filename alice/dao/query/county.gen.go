@@ -30,6 +30,7 @@ func newCounty(db *gorm.DB, opts ...gen.DOOption) county {
 	_county.ID = field.NewInt64(tableName, "id")
 	_county.Name = field.NewString(tableName, "name")
 	_county.Code = field.NewString(tableName, "code")
+	_county.FullCode = field.NewString(tableName, "full_code")
 	_county.ProvinceID = field.NewInt64(tableName, "province_id")
 	_county.CityID = field.NewInt64(tableName, "city_id")
 	_county.URL = field.NewString(tableName, "url")
@@ -52,7 +53,8 @@ type county struct {
 	ALL           field.Asterisk
 	ID            field.Int64
 	Name          field.String // 县名称
-	Code          field.String // 统计用区划代码
+	Code          field.String // 县级代码
+	FullCode      field.String // 统计用区划代码
 	ProvinceID    field.Int64  // province表id字段
 	CityID        field.Int64  // city表id字段
 	URL           field.String // 被抓取的url
@@ -81,6 +83,7 @@ func (c *county) updateTableName(table string) *county {
 	c.ID = field.NewInt64(table, "id")
 	c.Name = field.NewString(table, "name")
 	c.Code = field.NewString(table, "code")
+	c.FullCode = field.NewString(table, "full_code")
 	c.ProvinceID = field.NewInt64(table, "province_id")
 	c.CityID = field.NewInt64(table, "city_id")
 	c.URL = field.NewString(table, "url")
@@ -106,10 +109,11 @@ func (c *county) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (c *county) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 12)
+	c.fieldMap = make(map[string]field.Expr, 13)
 	c.fieldMap["id"] = c.ID
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["code"] = c.Code
+	c.fieldMap["full_code"] = c.FullCode
 	c.fieldMap["province_id"] = c.ProvinceID
 	c.fieldMap["city_id"] = c.CityID
 	c.fieldMap["url"] = c.URL

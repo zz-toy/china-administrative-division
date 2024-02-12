@@ -25,13 +25,29 @@ export const getCountyListApiUrl = () => {
     return `${getApiBaseUrl()}/county/list`
 }
 
-export const saveFile = (data, filename, type='application/json;charset=utf-8') => {
+export const saveJsonFile = (data, filename) => {
     if (!data || !filename) {
         return
     }
 
     const blob = new Blob([JSON.stringify(data, null, 2)], {
-        type: type
+        type: 'application/json;charset=utf-8'
+    })
+
+    try {
+        FileSaver.saveAs(blob, filename)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const saveCsvFile = (data, filename) => {
+    if (!data || !filename) {
+        return
+    }
+
+    const blob = new Blob([data], {
+        type: "data:text/csv;charset=utf-8,\ufeff"
     })
 
     try {

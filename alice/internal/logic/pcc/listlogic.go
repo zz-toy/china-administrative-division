@@ -83,6 +83,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 				Id:         v.ID,
 				Name:       v.Name,
 				Code:       v.Code,
+				FullCode:   v.FullCode,
 				Level:      config.COUNTY_LEVEL,
 				ProvinceId: v.ProvinceID,
 				CityId:     v.CityID,
@@ -98,6 +99,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 				if ok {
 					countyItem.CityName = _v.Name
 					countyItem.CityCode = _v.Code
+					countyItem.CityFullCode = _v.FullCode
 					countyItem.CityUrl = _v.URL
 				}
 			}
@@ -107,6 +109,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 				if ok {
 					countyItem.ProvinceName = _v.Name
 					countyItem.ProvinceCode = _v.Code
+					countyItem.ProvinceFullCode = _v.FullCode
 					countyItem.ProvinceUrl = _v.URL
 				}
 			}
@@ -128,6 +131,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 				Id:         v.ID,
 				Name:       v.Name,
 				Code:       v.Code,
+				FullCode:   v.FullCode,
 				Level:      config.CITY_LEVEL,
 				ProvinceId: v.ProvinceID,
 				Url:        v.URL,
@@ -142,6 +146,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 				if ok {
 					cityItem.ProvinceName = _v.Name
 					cityItem.ProvinceCode = _v.Code
+					cityItem.ProvinceFullCode = _v.FullCode
 					cityItem.ProvinceUrl = _v.URL
 				}
 			}
@@ -162,6 +167,7 @@ func (l *ListLogic) List(req *types.PCCListRequest) (resp *types.PCCListResponse
 			Id:             v.ID,
 			Name:           v.Name,
 			Code:           v.Code,
+			FullCode:       v.FullCode,
 			Url:            v.URL,
 			IsMunicipality: v.IsMunicipality,
 			Level:          config.PROVINCE_LEVEL,

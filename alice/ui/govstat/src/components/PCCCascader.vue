@@ -1,12 +1,13 @@
 <script setup>
 import { reactive,onMounted } from 'vue'
 import axios from 'axios'
-import { rebuildTree,getPccListApiUrl } from '../utils';
+import { cascadeTree,getPccListApiUrl,saveJsonFile } from '../utils';
 
 const dataSource = reactive({
   options: [],
   value: [],
-  selectedText: ""
+  selectedText: "",
+  apiData: []
 })
 
 const cascaderProps = {
@@ -20,8 +21,11 @@ onMounted(async () => {
 const init = async () => {
   const res = await axios.get(getPccListApiUrl())
   const data = res.data.data
-  if (data && Array.isArray(data)) {
-    dataSource.options = rebuildTree(data)
+  if (data && Array.isArray(data) && data.length > 0) {
+    dataSource.apiData = data
+    dataSource.options = cascadeTree(data)
+  } else {
+    dataSource.apiData = []
   }
 }
 
@@ -33,6 +37,14 @@ const handleChange = (value) => {
   }
 }
 
+const handleExportJsonFile = () => {
+  saveJsonFile(dataSource.options, "pcc.json")
+}
+
+const handleExportZnJsonFile = () => {
+  saveJsonFile(znCascadeTree(dataSource.apiData), "zn-province-city-district.json")
+}
+
 </script>
 
 <template>
@@ -40,7 +52,11 @@ const handleChange = (value) => {
     <template #header>
       <div class="card-header">
         <span>省市区三级联动</span>
-        <el-button type="primary">导出json</el-button>
+        <div>
+          <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
+          <el-button type="danger" @click="handleExportZnJsonFile">导出zn-json</el-button>
+        </div>
+        
       </div>
     </template>
     <el-cascader clearable placeholder="请选择" style="width: 400px;"

@@ -71,6 +71,7 @@ func (l *ListLogic) List(req *types.PCListRequest) (resp *types.PCListResponse, 
 				Id:         v.ID,
 				Name:       v.Name,
 				Code:       v.Code,
+				FullCode:   v.FullCode,
 				Level:      config.CITY_LEVEL,
 				ProvinceId: v.ProvinceID,
 				Url:        v.URL,
@@ -85,6 +86,7 @@ func (l *ListLogic) List(req *types.PCListRequest) (resp *types.PCListResponse, 
 				if ok {
 					cityItem.ProvinceName = _v.Name
 					cityItem.ProvinceCode = _v.Code
+					cityItem.ProvinceFullCode = _v.FullCode
 					cityItem.ProvinceUrl = _v.URL
 				}
 			}
@@ -98,6 +100,7 @@ func (l *ListLogic) List(req *types.PCListRequest) (resp *types.PCListResponse, 
 			Id:             v.ID,
 			Name:           v.Name,
 			Code:           v.Code,
+			FullCode:       v.FullCode,
 			Url:            v.URL,
 			IsMunicipality: v.IsMunicipality,
 			Level:          config.PROVINCE_LEVEL,

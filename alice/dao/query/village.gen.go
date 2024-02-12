@@ -30,6 +30,7 @@ func newVillage(db *gorm.DB, opts ...gen.DOOption) village {
 	_village.ID = field.NewInt64(tableName, "id")
 	_village.Name = field.NewString(tableName, "name")
 	_village.Code = field.NewString(tableName, "code")
+	_village.FullCode = field.NewString(tableName, "full_code")
 	_village.ClassifyCode = field.NewString(tableName, "classify_code")
 	_village.ProvinceID = field.NewInt64(tableName, "province_id")
 	_village.CityID = field.NewInt64(tableName, "city_id")
@@ -54,7 +55,8 @@ type village struct {
 	ALL           field.Asterisk
 	ID            field.Int64
 	Name          field.String // 村庄名称
-	Code          field.String // 统计用区划代码
+	Code          field.String // 村级代码
+	FullCode      field.String // 统计用区划代码
 	ClassifyCode  field.String // 城乡分类码
 	ProvinceID    field.Int64  // province表id字段
 	CityID        field.Int64  // city表id字段
@@ -85,6 +87,7 @@ func (v *village) updateTableName(table string) *village {
 	v.ID = field.NewInt64(table, "id")
 	v.Name = field.NewString(table, "name")
 	v.Code = field.NewString(table, "code")
+	v.FullCode = field.NewString(table, "full_code")
 	v.ClassifyCode = field.NewString(table, "classify_code")
 	v.ProvinceID = field.NewInt64(table, "province_id")
 	v.CityID = field.NewInt64(table, "city_id")
@@ -112,10 +115,11 @@ func (v *village) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (v *village) fillFieldMap() {
-	v.fieldMap = make(map[string]field.Expr, 14)
+	v.fieldMap = make(map[string]field.Expr, 15)
 	v.fieldMap["id"] = v.ID
 	v.fieldMap["name"] = v.Name
 	v.fieldMap["code"] = v.Code
+	v.fieldMap["full_code"] = v.FullCode
 	v.fieldMap["classify_code"] = v.ClassifyCode
 	v.fieldMap["province_id"] = v.ProvinceID
 	v.fieldMap["city_id"] = v.CityID

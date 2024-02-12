@@ -14,7 +14,8 @@ const TableNameTown = "town"
 type Town struct {
 	ID            int64      `gorm:"column:id;type:int;primaryKey;autoIncrement:true" json:"id"`
 	Name          string     `gorm:"column:name;type:varchar(50);not null;comment:乡镇名称" json:"name"`                                                 // 乡镇名称
-	Code          string     `gorm:"column:code;type:varchar(20);not null;comment:统计用区划代码" json:"code"`                                              // 统计用区划代码
+	Code          string     `gorm:"column:code;type:varchar(20);not null;comment:乡级代码" json:"code"`                                                 // 乡级代码
+	FullCode      string     `gorm:"column:full_code;type:varchar(20);not null;comment:统计用区划代码" json:"full_code"`                                    // 统计用区划代码
 	ProvinceID    int64      `gorm:"column:province_id;type:int;not null;comment:province表id字段" json:"province_id"`                                  // province表id字段
 	CityID        int64      `gorm:"column:city_id;type:int;not null;comment:city表id字段" json:"city_id"`                                              // city表id字段
 	CountyID      int64      `gorm:"column:county_id;type:int;not null;comment:county表id字段" json:"county_id"`                                        // county表id字段

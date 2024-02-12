@@ -70,6 +70,7 @@ func (l *ListLogic) List(req *types.CityListRequest) (resp *types.CityListRespon
 			Id:         v.ID,
 			Name:       v.Name,
 			Code:       v.Code,
+			FullCode:   v.FullCode,
 			ProvinceId: v.ProvinceID,
 			Url:        v.URL,
 			ChildUrl:   v.ChildURL,
@@ -82,6 +83,7 @@ func (l *ListLogic) List(req *types.CityListRequest) (resp *types.CityListRespon
 			if ok {
 				cityInfo.ProvinceName = _v.Name
 				cityInfo.ProvinceCode = _v.Code
+				cityInfo.ProvinceFullCode = _v.FullCode
 				cityInfo.ProvinceUrl = _v.URL
 			}
 		}

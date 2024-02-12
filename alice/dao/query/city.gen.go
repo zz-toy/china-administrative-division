@@ -30,6 +30,7 @@ func newCity(db *gorm.DB, opts ...gen.DOOption) city {
 	_city.ID = field.NewInt64(tableName, "id")
 	_city.Name = field.NewString(tableName, "name")
 	_city.Code = field.NewString(tableName, "code")
+	_city.FullCode = field.NewString(tableName, "full_code")
 	_city.ProvinceID = field.NewInt64(tableName, "province_id")
 	_city.URL = field.NewString(tableName, "url")
 	_city.ChildURL = field.NewString(tableName, "child_url")
@@ -51,7 +52,8 @@ type city struct {
 	ALL           field.Asterisk
 	ID            field.Int64
 	Name          field.String // 城市名称
-	Code          field.String // 统计用区划代码
+	Code          field.String // 地级代码
+	FullCode      field.String // 统计用区划代码
 	ProvinceID    field.Int64  // province表id字段
 	URL           field.String // 被抓取的url
 	ChildURL      field.String // 指向的子url
@@ -79,6 +81,7 @@ func (c *city) updateTableName(table string) *city {
 	c.ID = field.NewInt64(table, "id")
 	c.Name = field.NewString(table, "name")
 	c.Code = field.NewString(table, "code")
+	c.FullCode = field.NewString(table, "full_code")
 	c.ProvinceID = field.NewInt64(table, "province_id")
 	c.URL = field.NewString(table, "url")
 	c.ChildURL = field.NewString(table, "child_url")
@@ -103,10 +106,11 @@ func (c *city) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (c *city) fillFieldMap() {
-	c.fieldMap = make(map[string]field.Expr, 11)
+	c.fieldMap = make(map[string]field.Expr, 12)
 	c.fieldMap["id"] = c.ID
 	c.fieldMap["name"] = c.Name
 	c.fieldMap["code"] = c.Code
+	c.fieldMap["full_code"] = c.FullCode
 	c.fieldMap["province_id"] = c.ProvinceID
 	c.fieldMap["url"] = c.URL
 	c.fieldMap["child_url"] = c.ChildURL

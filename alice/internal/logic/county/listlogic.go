@@ -93,6 +93,7 @@ func (l *ListLogic) List(req *types.CountyListRequest) (resp *types.CountyListRe
 			Id:         v.ID,
 			Name:       v.Name,
 			Code:       v.Code,
+			FullCode:   v.FullCode,
 			ProvinceId: v.ProvinceID,
 			CityId:     v.CityID,
 			Url:        v.URL,
@@ -105,8 +106,8 @@ func (l *ListLogic) List(req *types.CountyListRequest) (resp *types.CountyListRe
 			_v, ok := provinceIdMap[v.ProvinceID]
 			if ok {
 				countyInfo.ProvinceName = _v.Name
-				countyInfo.ProvinceName = _v.Name
 				countyInfo.ProvinceCode = _v.Code
+				countyInfo.ProvinceFullCode = _v.FullCode
 				countyInfo.ProvinceUrl = _v.URL
 			}
 		}
@@ -115,8 +116,8 @@ func (l *ListLogic) List(req *types.CountyListRequest) (resp *types.CountyListRe
 			_vv, ok := cityIdMap[v.CityID]
 			if ok {
 				countyInfo.CityName = _vv.Name
-				countyInfo.CityName = _vv.Name
 				countyInfo.CityCode = _vv.Code
+				countyInfo.CityFullCode = _vv.FullCode
 				countyInfo.CityUrl = _vv.URL
 			}
 		}

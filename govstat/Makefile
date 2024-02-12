@@ -15,3 +15,7 @@ activate:
 
 create-requirements:
 	@conda list -e > requirements.txt
+
+.PHONY: build
+build:
+	@python ./_export/export.py

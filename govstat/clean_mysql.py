@@ -16,11 +16,11 @@ if __name__ == '__main__':
             )
     db_connect.ping()
     with db_connect.cursor() as cursor:
-        # cursor.execute("truncate province")
-        # cursor.execute("truncate city")
+        cursor.execute("truncate province")
+        cursor.execute("truncate city")
         cursor.execute("truncate county")
-        # cursor.execute("truncate town")
-        # cursor.execute("truncate village")
+        cursor.execute("truncate town")
+        cursor.execute("truncate village")
     db_connect.commit()
 
     print('Clear table province Success!')

@@ -11,6 +11,7 @@ type ProviceInfo struct {
 	Id             int64  `json:"id"`
 	Name           string `json:"name"`
 	Code           string `json:"code"`
+	FullCode       string `json:"full_code"`
 	Url            string `json:"url"`
 	ChildUrl       string `json:"child_url"`
 	IsMunicipality bool   `json:"is_municipality"`
@@ -19,41 +20,47 @@ type ProviceInfo struct {
 }
 
 type CityInfo struct {
-	Id           int64  `json:"id"`
-	Name         string `json:"name"`
-	Code         string `json:"code"`
-	ProvinceId   int64  `json:"province_id"`
-	ProvinceName string `json:"province_name"`
-	ProvinceCode string `json:"province_code"`
-	ProvinceUrl  string `json:"province_url"`
-	Url          string `json:"url"`
-	ChildUrl     string `json:"child_url"`
-	CreatedAt    string `json:"created_at"`
-	UpdatedAt    string `json:"updated_at"`
+	Id               int64  `json:"id"`
+	Name             string `json:"name"`
+	Code             string `json:"code"`
+	FullCode         string `json:"full_code"`
+	ProvinceId       int64  `json:"province_id"`
+	ProvinceName     string `json:"province_name"`
+	ProvinceCode     string `json:"province_code"`
+	ProvinceFullCode string `json:"province_full_code"`
+	ProvinceUrl      string `json:"province_url"`
+	Url              string `json:"url"`
+	ChildUrl         string `json:"child_url"`
+	CreatedAt        string `json:"created_at"`
+	UpdatedAt        string `json:"updated_at"`
 }
 
 type CountyInfo struct {
-	Id           int64  `json:"id"`
-	Name         string `json:"name"`
-	Code         string `json:"code"`
-	ProvinceId   int64  `json:"province_id"`
-	ProvinceName string `json:"province_name"`
-	ProvinceCode string `json:"province_code"`
-	ProvinceUrl  string `json:"province_url"`
-	CityId       int64  `json:"city_id"`
-	CityName     string `json:"city_name"`
-	CityCode     string `json:"city_code"`
-	CityUrl      string `json:"city_url"`
-	Url          string `json:"url"`
-	ChildUrl     string `json:"child_url"`
-	CreatedAt    string `json:"created_at"`
-	UpdatedAt    string `json:"updated_at"`
+	Id               int64  `json:"id"`
+	Name             string `json:"name"`
+	Code             string `json:"code"`
+	FullCode         string `json:"full_code"`
+	ProvinceId       int64  `json:"province_id"`
+	ProvinceName     string `json:"province_name"`
+	ProvinceCode     string `json:"province_code"`
+	ProvinceFullCode string `json:"province_full_code"`
+	ProvinceUrl      string `json:"province_url"`
+	CityId           int64  `json:"city_id"`
+	CityName         string `json:"city_name"`
+	CityCode         string `json:"city_code"`
+	CityFullCode     string `json:"city_full_code"`
+	CityUrl          string `json:"city_url"`
+	Url              string `json:"url"`
+	ChildUrl         string `json:"child_url"`
+	CreatedAt        string `json:"created_at"`
+	UpdatedAt        string `json:"updated_at"`
 }
 
 type ProvinceItem struct {
 	Id             int64       `json:"id"`
 	Name           string      `json:"name"`
 	Code           string      `json:"code"`
+	FullCode       string      `json:"full_code"`
 	Url            string      `json:"url"`
 	ChildUrl       string      `json:"child_url"`
 	IsMunicipality bool        `json:"is_municipality"`
@@ -64,39 +71,44 @@ type ProvinceItem struct {
 }
 
 type CityItem struct {
-	Id           int64         `json:"id"`
-	Name         string        `json:"name"`
-	Code         string        `json:"code"`
-	Level        int           `json:"level"`
-	ProvinceId   int64         `json:"province_id"`
-	ProvinceName string        `json:"province_name"`
-	ProvinceCode string        `json:"province_code"`
-	ProvinceUrl  string        `json:"province_url"`
-	Url          string        `json:"url"`
-	ChildUrl     string        `json:"child_url"`
-	CreatedAt    string        `json:"created_at"`
-	UpdatedAt    string        `json:"updated_at"`
-	Children     []*CountyItem `json:"children"`
+	Id               int64         `json:"id"`
+	Name             string        `json:"name"`
+	Code             string        `json:"code"`
+	FullCode         string        `json:"full_code"`
+	Level            int           `json:"level"`
+	ProvinceId       int64         `json:"province_id"`
+	ProvinceName     string        `json:"province_name"`
+	ProvinceCode     string        `json:"province_code"`
+	ProvinceFullCode string        `json:"province_full_code"`
+	ProvinceUrl      string        `json:"province_url"`
+	Url              string        `json:"url"`
+	ChildUrl         string        `json:"child_url"`
+	CreatedAt        string        `json:"created_at"`
+	UpdatedAt        string        `json:"updated_at"`
+	Children         []*CountyItem `json:"children"`
 }
 
 type CountyItem struct {
-	Id           int64         `json:"id"`
-	Name         string        `json:"name"`
-	Code         string        `json:"code"`
-	Level        int           `json:"level"`
-	ProvinceId   int64         `json:"province_id"`
-	ProvinceName string        `json:"province_name"`
-	ProvinceCode string        `json:"province_code"`
-	ProvinceUrl  string        `json:"province_url"`
-	CityId       int64         `json:"city_id"`
-	CityName     string        `json:"city_name"`
-	CityCode     string        `json:"city_code"`
-	CityUrl      string        `json:"city_url"`
-	Url          string        `json:"url"`
-	ChildUrl     string        `json:"child_url"`
-	CreatedAt    string        `json:"created_at"`
-	UpdatedAt    string        `json:"updated_at"`
-	Children     []interface{} `json:"children"`
+	Id               int64         `json:"id"`
+	Name             string        `json:"name"`
+	Code             string        `json:"code"`
+	FullCode         string        `json:"full_code"`
+	Level            int           `json:"level"`
+	ProvinceId       int64         `json:"province_id"`
+	ProvinceName     string        `json:"province_name"`
+	ProvinceCode     string        `json:"province_code"`
+	ProvinceFullCode string        `json:"province_full_code"`
+	ProvinceUrl      string        `json:"province_url"`
+	CityId           int64         `json:"city_id"`
+	CityName         string        `json:"city_name"`
+	CityCode         string        `json:"city_code"`
+	CityFullCode     string        `json:"city_full_code"`
+	CityUrl          string        `json:"city_url"`
+	Url              string        `json:"url"`
+	ChildUrl         string        `json:"child_url"`
+	CreatedAt        string        `json:"created_at"`
+	UpdatedAt        string        `json:"updated_at"`
+	Children         []interface{} `json:"children"`
 }
 
 type ProvinceListRequest struct {
