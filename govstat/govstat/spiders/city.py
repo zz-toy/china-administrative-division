@@ -87,7 +87,8 @@ class CitySpider(Spider):
                     item['child_url'] = response.urljoin(href)
 
             item['name'] = text
-            item['code'] = code
+            item['code'] = code[:4]
+            item['full_code'] = code
             item['province_id'] = province.get('id')
 
             logger.info(item)

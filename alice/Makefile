@@ -3,6 +3,9 @@ MAIN_GO_FILE=alice.go
 GO_CTL=goctl
 TOOL_DIR=./tool
 
+UI_PATH=./ui
+UI_DIST_PATH=$(UI_PATH)/dist
+
 .PHONY: help test
 help:
 	@echo "usage: make <option>"
@@ -35,9 +38,33 @@ validate-api:
 	@${GO_CTL} api validate --api=${TOOL_DIR}/province.api
 	@${GO_CTL} api validate --api=${TOOL_DIR}/city.api
 	@${GO_CTL} api validate --api=${TOOL_DIR}/county.api
+	@${GO_CTL} api validate --api=${TOOL_DIR}/pc.api
+	@${GO_CTL} api validate --api=${TOOL_DIR}/pcc.api
 
 .PHONY: gentool-model gen-gorm-model
 gentool-model:
 	@gentool -c ${TOOL_DIR}/gentool.yaml
 gen-gorm-model:
 	@${GO} run ${TOOL_DIR}/main.go -f ${TOOL_DIR}/conf.yaml
+
+
+
+.PHONY: clean-ui dev-ui build-ui mv-ui
+clean-ui:
+	@rm -rf $(UI_DIST_PATH)
+	@echo "Clean Ui finish ..."
+
+mv-ui:
+	@cd $(UI_PATH) && \
+	cp -rpf dist $(GO_UI_PATH) && \
+	echo "mv-ui success ..."
+
+dev-ui:
+	@cd $(UI_PATH) && \
+    pnpm run dev && \
+    echo "dev-ui success ..."
+
+build-ui:
+	@cd $(UI_PATH) && \
+	pnpm run build && \
+	echo "build-ui success ..."

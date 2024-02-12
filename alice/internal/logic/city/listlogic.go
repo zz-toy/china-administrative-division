@@ -27,7 +27,7 @@ func NewListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListLogic {
 func (l *ListLogic) List(req *types.CityListRequest) (resp *types.CityListResponse, err error) {
 	resp = &types.CityListResponse{
 		BaseResponse: types.SuccessResponse(),
-		Data:         make([]types.CityInfo, 0),
+		Data:         make([]*types.CityInfo, 0),
 	}
 
 	var provinceIds []int64
@@ -61,9 +61,12 @@ func (l *ListLogic) List(req *types.CityListRequest) (resp *types.CityListRespon
 	}
 
 	provinceIdMap, err := l.svcCtx.ProvinceModel.IdMapByIds(l.ctx, provinceIds)
+	if err != nil {
+		return nil, types.SearchFailError
+	}
 
 	for _, v := range cities {
-		cityInfo := types.CityInfo{
+		cityInfo := &types.CityInfo{
 			Id:         v.ID,
 			Name:       v.Name,
 			Code:       v.Code,

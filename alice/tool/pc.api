@@ -1,0 +1,23 @@
+syntax = "v1"
+
+import "base.api"
+
+type PCListRequest {
+	Name           string `form:"name,optional"`
+	IsMunicipality string `form:"is_municipality,optional"`
+}
+
+type PCListResponse {
+	BaseResponse
+	Data []*ProvinceItem `json:"data"`
+}
+
+@server (
+	prefix: /pc
+	group:  pc
+)
+service alice-api {
+	@doc "省市二级联动数据"
+	@handler list
+	get /list (PCListRequest) returns (PCListResponse)
+}

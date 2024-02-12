@@ -24,6 +24,7 @@ type (
 		ListByConditionQuery(ctx context.Context, name string, provinceIds []int64) ([]*model.City, error)
 		IdsByName(ctx context.Context, name string) ([]int64, error)
 		ListByProvinceId(ctx context.Context, provinceId int64) ([]*model.City, error)
+		ListByProvinceIds(ctx context.Context, provinceIds []int64) ([]*model.City, error)
 		ToIdMap(ctx context.Context, list []*model.City) map[int64]*model.City
 		ListByIds(ctx context.Context, ids []int64) ([]*model.City, error)
 		IdMapByIds(ctx context.Context, ids []int64) (map[int64]*model.City, error)
@@ -86,6 +87,14 @@ func (c *customCityModel) ListByProvinceId(ctx context.Context, provinceId int64
 	}
 
 	return c.Dao.WithContext(ctx).Where(c.Dao.ProvinceID.Eq(provinceId)).Find()
+}
+
+func (c *customCityModel) ListByProvinceIds(ctx context.Context, provinceIds []int64) ([]*model.City, error) {
+	if provinceIds == nil || len(provinceIds) == 0 {
+		return nil, nil
+	}
+
+	return c.Dao.WithContext(ctx).Where(c.Dao.ProvinceID.In(provinceIds...)).Find()
 }
 
 func (c *customCityModel) ToIdMap(ctx context.Context, list []*model.City) map[int64]*model.City {

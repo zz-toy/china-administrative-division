@@ -8,23 +8,9 @@ type CityListRequest {
 	Name         string `form:"name,optional"`
 }
 
-type CityInfo {
-	Id           int64  `json:"id"`
-	Name         string `json:"name"`
-	Code         string `json:"code"`
-	ProvinceId   int64  `json:"province_id"`
-	ProvinceName string `json:"province_name"`
-	ProvinceCode string `json:"province_code"`
-	ProvinceUrl  string `json:"province_url"`
-	Url          string `json:"url"`
-	ChildUrl     string `json:"child_url"`
-	CreatedAt    string `json:"created_at"`
-	UpdatedAt    string `json:"updated_at"`
-}
-
 type CityListResponse {
 	BaseResponse
-	Data []CityInfo `json:"data"`
+	Data []*CityInfo `json:"data"`
 }
 
 @server (

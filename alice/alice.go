@@ -38,6 +38,7 @@ func main() {
 		rest.WithUnauthorizedCallback(unauthorizedCallback()),
 		rest.WithNotFoundHandler(notFoundHandler()),
 		rest.WithNotAllowedHandler(notAllowedHandler()))
+	registerStaticRoute(server)
 	defer server.Stop()
 
 	var cfg logx.LogConf = c.Log
@@ -80,4 +81,12 @@ func notFoundHandler() http.HandlerFunc {
 		httpx.WriteJson(w, http.StatusNotFound, types.FailResponse(http.StatusNotFound, http.StatusText(http.StatusNotFound)))
 		return
 	}
+}
+
+func registerStaticRoute(server *rest.Server) {
+	server.AddRoute(rest.Route{
+		Method:  http.MethodGet,
+		Path:    "/static/:file",
+		Handler: http.StripPrefix("/static/", http.FileServer(http.Dir("ui"))).ServeHTTP,
+	})
 }

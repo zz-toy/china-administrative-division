@@ -8,7 +8,8 @@ DROP TABLE IF EXISTS `province` ;
 CREATE TABLE `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '省名称',
-  `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
+  `code` varchar(2) NOT NULL DEFAULT '' COMMENT '省级代码',
+  `full_code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `url` varchar(200) NOT NULL DEFAULT '' COMMENT '被抓取的url',
   `child_url` varchar(200) NOT NULL DEFAULT '' COMMENT '指向的子url',
   `is_municipality` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是不是直辖市:1-是;0-否',
@@ -24,7 +25,8 @@ DROP TABLE IF EXISTS `city` ;
 CREATE TABLE `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '城市名称',
-  `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
+  `code` varchar(2) NOT NULL DEFAULT '' COMMENT '地级代码',
+  `full_code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `province_id` int(11) NOT NULL DEFAULT '0' COMMENT 'province表id字段',
   `url` varchar(200) NOT NULL DEFAULT '' COMMENT '被抓取的url',
   `child_url` varchar(200) NOT NULL DEFAULT '' COMMENT '指向的子url',
@@ -40,7 +42,8 @@ DROP TABLE IF EXISTS `county` ;
 CREATE TABLE `county` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '县名称',
-  `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
+  `code` varchar(2) NOT NULL DEFAULT '' COMMENT '县级代码',
+  `full_code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `province_id` int(11) NOT NULL DEFAULT '0' COMMENT 'province表id字段',
   `city_id` int(11) NOT NULL DEFAULT '0' COMMENT 'city表id字段',
   `url` varchar(200) NOT NULL DEFAULT '' COMMENT '被抓取的url',
@@ -57,7 +60,8 @@ DROP TABLE IF EXISTS `town` ;
 CREATE TABLE `town` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '乡镇名称',
-  `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
+  `code` varchar(4) NOT NULL DEFAULT '' COMMENT '乡级代码',
+  `full_code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
   `province_id` int(11) NOT NULL DEFAULT '0' COMMENT 'province表id字段',
   `city_id` int(11) NOT NULL DEFAULT '0' COMMENT 'city表id字段',
   `county_id` int(11) NOT NULL DEFAULT '0' COMMENT 'county表id字段',
@@ -75,8 +79,9 @@ DROP TABLE IF EXISTS `village` ;
 CREATE TABLE `village` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '村庄名称',
-  `code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
-  `classify_code` varchar(10) NOT NULL DEFAULT '' COMMENT '城乡分类码',
+  `code` varchar(4) NOT NULL DEFAULT '' COMMENT '村级代码',
+  `full_code` varchar(20) NOT NULL DEFAULT '' COMMENT '统计用区划代码',
+  `classify_code` varchar(4) NOT NULL DEFAULT '' COMMENT '城乡分类码',
   `province_id` int(11) NOT NULL DEFAULT '0' COMMENT 'province表id字段',
   `city_id` int(11) NOT NULL DEFAULT '0' COMMENT 'city表id字段',
   `county_id` int(11) NOT NULL DEFAULT '0' COMMENT 'county表id字段',

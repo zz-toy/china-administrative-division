@@ -87,7 +87,8 @@ class CountySpider(Spider):
                     item['child_url'] = response.urljoin(href)
 
             item['name'] = text
-            item['code'] = code
+            item['code'] = code[:6]
+            item['full_code'] = code
             item['province_id'] = city.get('province_id')
             item['city_id'] = city.get('id')
 

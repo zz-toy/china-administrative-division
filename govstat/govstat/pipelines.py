@@ -40,6 +40,7 @@ class ProvincePipeline:
         item['id'] = self._db_manager.insert('province', {
             'name': item.get('name'),
             'code': item.get('code'),
+            'full_code': item.get('full_code'),
             'url': item.get('url'),
             'child_url': item.get('child_url'),
             'is_municipality': item.get('is_municipality'),
@@ -78,6 +79,7 @@ class CityPipeline:
         item['id'] = self._db_manager.insert('city', {
             'name': item.get('name'),
             'code': item.get('code'),
+            'full_code': item.get('full_code'),
             'url': item.get('url'),
             'child_url': item.get('child_url'),
             'province_id': item.get('province_id'),
@@ -116,6 +118,7 @@ class CountyPipeline:
         item['id'] = self._db_manager.insert('county', {
             'name': item.get('name'),
             'code': item.get('code'),
+            'full_code': item.get('full_code'),
             'url': item.get('url'),
             'child_url': item.get('child_url'),
             'province_id': item.get('province_id'),
@@ -155,6 +158,7 @@ class TownPipeline:
         item['id'] = self._db_manager.insert('town', {
             'name': item.get('name'),
             'code': item.get('code'),
+            'full_code': item.get('full_code'),
             'url': item.get('url'),
             'child_url': item.get('child_url'),
             'province_id': item.get('province_id'),
@@ -195,6 +199,7 @@ class VillagePipeline:
         item['id'] = self._db_manager.insert('village', {
             'name': item.get('name'),
             'code': item.get('code'),
+            'full_code': item.get('full_code'),
             'classify_code': item.get('classify_code'),
             'url': item.get('url'),
             'province_id': item.get('province_id'),

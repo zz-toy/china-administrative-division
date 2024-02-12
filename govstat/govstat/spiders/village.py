@@ -74,7 +74,9 @@ class VillageSpider(Spider):
 
             item = VillageItem()
             item['name'] = text_td.xpath("text()").extract_first()
-            item['code'] = code_td.xpath("text()").extract_first()
+            code = code_td.xpath("text()").extract_first()
+            item['code'] = code
+            item['full_code'] = code
             item['classify_code'] = classify_code_td.xpath("text()").extract_first()
             item['url'] = current_url
             item['province_id'] = town.get('province_id')

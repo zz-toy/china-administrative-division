@@ -6,6 +6,8 @@ import (
 
 	city "alice/internal/handler/city"
 	county "alice/internal/handler/county"
+	pc "alice/internal/handler/pc"
+	pcc "alice/internal/handler/pcc"
 	province "alice/internal/handler/province"
 	"alice/internal/svc"
 
@@ -44,5 +46,27 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/county"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/list",
+				Handler: pc.ListHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/pc"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodGet,
+				Path:    "/list",
+				Handler: pcc.ListHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/pcc"),
 	)
 }

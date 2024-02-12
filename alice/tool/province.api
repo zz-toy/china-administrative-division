@@ -7,20 +7,9 @@ type ProvinceListRequest {
 	IsMunicipality string `form:"is_municipality,optional"`
 }
 
-type ProviceInfo {
-	Id             int64  `json:"id"`
-	Name           string `json:"name"`
-	Code           string `json:"code"`
-	Url            string `json:"url"`
-	ChildUrl       string `json:"child_url"`
-	IsMunicipality bool   `json:"is_municipality"`
-	CreatedAt      string `json:"created_at"`
-	UpdatedAt      string `json:"updated_at"`
-}
-
 type ProvinceListResponse {
 	BaseResponse
-	Data []ProviceInfo `json:"data"`
+	Data []*ProviceInfo `json:"data"`
 }
 
 @server (

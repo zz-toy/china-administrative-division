@@ -23,7 +23,9 @@ type (
 		ListByConditionQuery(ctx context.Context, name string, provinceIds []int64, cityIds []int64) ([]*model.County, error)
 		IdsByName(ctx context.Context, name string) ([]int64, error)
 		ListByProvinceId(ctx context.Context, provinceId int64) ([]*model.County, error)
+		ListByProvinceIds(ctx context.Context, provinceIds []int64) ([]*model.County, error)
 		ListByCityId(ctx context.Context, cityId int64) ([]*model.County, error)
+		ListByCityIds(ctx context.Context, cityIds []int64) ([]*model.County, error)
 	}
 
 	customCountyModel struct {
@@ -89,10 +91,26 @@ func (c *customCountyModel) ListByProvinceId(ctx context.Context, provinceId int
 	return c.Dao.WithContext(ctx).Where(c.Dao.ProvinceID.Eq(provinceId)).Find()
 }
 
+func (c *customCountyModel) ListByProvinceIds(ctx context.Context, provinceIds []int64) ([]*model.County, error) {
+	if provinceIds == nil || len(provinceIds) == 0 {
+		return nil, nil
+	}
+
+	return c.Dao.WithContext(ctx).Where(c.Dao.ProvinceID.In(provinceIds...)).Find()
+}
+
 func (c *customCountyModel) ListByCityId(ctx context.Context, cityId int64) ([]*model.County, error) {
 	if cityId <= 0 {
 		return nil, nil
 	}
 
 	return c.Dao.WithContext(ctx).Where(c.Dao.CityID.Eq(cityId)).Find()
+}
+
+func (c *customCountyModel) ListByCityIds(ctx context.Context, cityIds []int64) ([]*model.County, error) {
+	if cityIds == nil || len(cityIds) == 0 {
+		return nil, nil
+	}
+
+	return c.Dao.WithContext(ctx).Where(c.Dao.CityID.In(cityIds...)).Find()
 }

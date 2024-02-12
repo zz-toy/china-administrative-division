@@ -27,7 +27,7 @@ func NewListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *ListLogic {
 func (l *ListLogic) List(req *types.ProvinceListRequest) (resp *types.ProvinceListResponse, err error) {
 	resp = &types.ProvinceListResponse{
 		BaseResponse: types.SuccessResponse(),
-		Data:         make([]types.ProviceInfo, 0),
+		Data:         make([]*types.ProviceInfo, 0),
 	}
 
 	provinces, err := l.svcCtx.ProvinceModel.ListByConditionQuery(l.ctx, req.Name, req.IsMunicipality)
@@ -40,8 +40,8 @@ func (l *ListLogic) List(req *types.ProvinceListRequest) (resp *types.ProvinceLi
 	}
 
 	for _, v := range provinces {
-		provinceInfo := types.ProviceInfo{
-			Id:             int64(v.ID),
+		provinceInfo := &types.ProviceInfo{
+			Id:             v.ID,
 			Name:           v.Name,
 			Code:           v.Code,
 			Url:            v.URL,

@@ -64,6 +64,7 @@ class ProvinceSpider(Spider):
                 item['url'] = current_url
                 item['name'] = text
                 item['code'] = href.rstrip(".html")
+                item['full_code'] = f"{item['code']}0000000000" # 一共12位，前1-2位表示省级代码
                 if text in ['北京市', '上海市', '天津市', '重庆市']:
                     item['is_municipality'] = 1
                 else:

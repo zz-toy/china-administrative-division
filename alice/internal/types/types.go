@@ -7,11 +7,6 @@ type BaseResponse struct {
 	Msg  string `json:"msg"`
 }
 
-type ProvinceListRequest struct {
-	Name           string `form:"name,optional"`
-	IsMunicipality string `form:"is_municipality,optional"`
-}
-
 type ProviceInfo struct {
 	Id             int64  `json:"id"`
 	Name           string `json:"name"`
@@ -21,17 +16,6 @@ type ProviceInfo struct {
 	IsMunicipality bool   `json:"is_municipality"`
 	CreatedAt      string `json:"created_at"`
 	UpdatedAt      string `json:"updated_at"`
-}
-
-type ProvinceListResponse struct {
-	BaseResponse
-	Data []ProviceInfo `json:"data"`
-}
-
-type CityListRequest struct {
-	ProvinceName string `form:"province_name,optional"`
-	ProvinceId   int64  `form:"province_id,optional"`
-	Name         string `form:"name,optional"`
 }
 
 type CityInfo struct {
@@ -46,19 +30,6 @@ type CityInfo struct {
 	ChildUrl     string `json:"child_url"`
 	CreatedAt    string `json:"created_at"`
 	UpdatedAt    string `json:"updated_at"`
-}
-
-type CityListResponse struct {
-	BaseResponse
-	Data []CityInfo `json:"data"`
-}
-
-type CountyListRequest struct {
-	ProvinceName string `form:"province_name,optional"`
-	CityName     string `form:"city_name,optional"`
-	Name         string `form:"name,optional"`
-	ProvinceId   int64  `form:"province_id,optional"`
-	CityId       int64  `form:"city_id,optional"`
 }
 
 type CountyInfo struct {
@@ -79,7 +50,105 @@ type CountyInfo struct {
 	UpdatedAt    string `json:"updated_at"`
 }
 
+type ProvinceItem struct {
+	Id             int64       `json:"id"`
+	Name           string      `json:"name"`
+	Code           string      `json:"code"`
+	Url            string      `json:"url"`
+	ChildUrl       string      `json:"child_url"`
+	IsMunicipality bool        `json:"is_municipality"`
+	CreatedAt      string      `json:"created_at"`
+	UpdatedAt      string      `json:"updated_at"`
+	Level          int         `json:"level"`
+	Children       []*CityItem `json:"children"`
+}
+
+type CityItem struct {
+	Id           int64         `json:"id"`
+	Name         string        `json:"name"`
+	Code         string        `json:"code"`
+	Level        int           `json:"level"`
+	ProvinceId   int64         `json:"province_id"`
+	ProvinceName string        `json:"province_name"`
+	ProvinceCode string        `json:"province_code"`
+	ProvinceUrl  string        `json:"province_url"`
+	Url          string        `json:"url"`
+	ChildUrl     string        `json:"child_url"`
+	CreatedAt    string        `json:"created_at"`
+	UpdatedAt    string        `json:"updated_at"`
+	Children     []*CountyItem `json:"children"`
+}
+
+type CountyItem struct {
+	Id           int64         `json:"id"`
+	Name         string        `json:"name"`
+	Code         string        `json:"code"`
+	Level        int           `json:"level"`
+	ProvinceId   int64         `json:"province_id"`
+	ProvinceName string        `json:"province_name"`
+	ProvinceCode string        `json:"province_code"`
+	ProvinceUrl  string        `json:"province_url"`
+	CityId       int64         `json:"city_id"`
+	CityName     string        `json:"city_name"`
+	CityCode     string        `json:"city_code"`
+	CityUrl      string        `json:"city_url"`
+	Url          string        `json:"url"`
+	ChildUrl     string        `json:"child_url"`
+	CreatedAt    string        `json:"created_at"`
+	UpdatedAt    string        `json:"updated_at"`
+	Children     []interface{} `json:"children"`
+}
+
+type ProvinceListRequest struct {
+	Name           string `form:"name,optional"`
+	IsMunicipality string `form:"is_municipality,optional"`
+}
+
+type ProvinceListResponse struct {
+	BaseResponse
+	Data []*ProviceInfo `json:"data"`
+}
+
+type CityListRequest struct {
+	ProvinceName string `form:"province_name,optional"`
+	ProvinceId   int64  `form:"province_id,optional"`
+	Name         string `form:"name,optional"`
+}
+
+type CityListResponse struct {
+	BaseResponse
+	Data []*CityInfo `json:"data"`
+}
+
+type CountyListRequest struct {
+	ProvinceName string `form:"province_name,optional"`
+	CityName     string `form:"city_name,optional"`
+	Name         string `form:"name,optional"`
+	ProvinceId   int64  `form:"province_id,optional"`
+	CityId       int64  `form:"city_id,optional"`
+}
+
 type CountyListResponse struct {
 	BaseResponse
-	Data []CountyInfo `json:"data"`
+	Data []*CountyInfo `json:"data"`
+}
+
+type PCListRequest struct {
+	Name           string `form:"name,optional"`
+	IsMunicipality string `form:"is_municipality,optional"`
+}
+
+type PCListResponse struct {
+	BaseResponse
+	Data []*ProvinceItem `json:"data"`
+}
+
+type PCCListRequest struct {
+	Name           string `form:"name,optional"`
+	IsMunicipality string `form:"is_municipality,optional"`
+}
+
+type PCCListResponse struct {
+	BaseResponse
+	Data []*ProvinceItem `json:"data"`
 }
