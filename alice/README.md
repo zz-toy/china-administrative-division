@@ -1,10 +1,10 @@
-# api
-- [go-zero github](https://github.com/zeromicro/go-zero)
+# alice
+- [go-zero](https://github.com/zeromicro/go-zero)
 
 基于 go-zero 搭建的 行政区划数据 http 服务
 
 ## 说明
-api只提供最原始的数据，如果需要进行字段改名以及格式转化，通过接口返回的数据自行处理。
+api只提供最原始的数据，如果有字段改名等需求，通过接口返回的数据自行处理。
 
 ## 开发环境
 ```shell
@@ -92,9 +92,10 @@ GET /village/list
 
 ### 级联数据
 #### 省市联动
+GET /pc/list
 #### 省市区联动
+GET /pcc/list
 #### 省市区乡镇联动
+GET /pcct/list
 #### 省市区乡镇村庄联动
-
-### 数据导出
-支持json,csv格式的数据导出
+GET /pcctv/list
