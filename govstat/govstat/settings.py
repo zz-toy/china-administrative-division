@@ -110,6 +110,8 @@ DB = {
     "CHARSET": "utf8mb4"
 }
 
+BATCH_INSERT_SIZE = 100
+
 # Redis
 REDIS_HOST = '192.168.200.253'
 REDIS_PORT = 6400

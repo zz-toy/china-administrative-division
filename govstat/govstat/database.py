@@ -89,6 +89,24 @@ class DbManager:
                 self.connection.rollback()
                 return 0
 
+    def insert_many(self, table_name: str, column: str, data: list) -> int:
+        if not table_name or len(data) == 0 or not column:
+            return 0
+
+        column_list = column.split(',')
+        values = ', '.join(['%s'] * len(column_list))
+        sql = f"INSERT INTO {table_name} ({column}) VALUES ({values})"
+        print('sql:', sql)
+        with self.connection.cursor() as cursor:
+            try:
+                cursor.executemany(sql, data)
+                self.connection.commit()
+                return self.connection.affected_rows()
+            except Exception as e:
+                print(e)
+                self.connection.rollback()
+                return 0
+
     def update(self, table_name: str, data: dict, where=None, params=None):
         if not where:
             print(ValueError("缺失WHERE条件"))
@@ -125,15 +143,15 @@ class DbManager:
 
 
 if __name__ == '__main__':
-    # config = {
-    #     "HOST": "192.168.200.253",
-    #     "PORT": 3400,
-    #     "USERNAME": "root",
-    #     "PASSWORD": "123456",
-    #     "DATABASE": "govstat",
-    #     "CHARSET": "utf8mb4",
-    # }
-    # db_manager = DbManager(config)
+    config = {
+        "HOST": "192.168.200.253",
+        "PORT": 3400,
+        "USERNAME": "root",
+        "PASSWORD": "123456",
+        "DATABASE": "govstat",
+        "CHARSET": "utf8mb4",
+    }
+    db_manager = DbManager(config)
 
     # 插入数据
     # insert_sql = "INSERT INTO `province`(`name`,`code`,`url`) values('山西省', '121212', 'http://shanxi.com'),('河北省', '2222', 'http://hebei.com')"
@@ -151,6 +169,12 @@ if __name__ == '__main__':
     #     print("插入成功")
     # else:
     #     print("插入失败")
+
+    # 插入多条数据
+    # column = "name,code,url"
+    # data = [('山西省', 12, 'xxxx'), ('河北省', 13, 'xxxxx')]
+    # res = db_manager.insert_many('province_t', column, data)
+    # print('res:', res)
 
     # 查询单条数据
     # province_record = db_manager.fetchone('province', columns='*', where="name=%s", params=('山西省',))
