@@ -28,8 +28,8 @@
 |---|---|---|
 | 省级(省份, 直辖市, 自治区) | [province.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/province.json) | [province.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/province.csv) |
 | 市级(城市, 市区) | [city.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/city.json) | [city.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/city.csv) |
-| 区级(区县, 县城) | [county.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/county.json) | [district.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/county.csv) |
-| 乡级(乡镇、街道) | [town.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/town.json) | [street.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/town.csv) |
+| 区级(区县, 县城) | [county.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/county.json) | [county.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/county.csv) |
+| 乡级(乡镇、街道) | [town.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/town.json) | [town.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/town.csv) |
 | 村级(村委会、居委会) | [village.json](https://github.com/zz-open/china-administrative-division/blob/main/dist/village.json) | [village.csv](https://github.com/zz-open/china-administrative-division/blob/main/dist/village.csv) |
 
 - 级联数据
