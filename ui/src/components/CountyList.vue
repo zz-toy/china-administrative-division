@@ -1,7 +1,7 @@
 <script setup>
 import { reactive,onMounted } from 'vue'
 import axios from 'axios'
-import { getCountyTree, getCountyListApiUrl,saveJsonFile } from '../utils';
+import { mockUrls } from '../utils';
 
 const dataSource = reactive({
   options: [],
@@ -20,11 +20,11 @@ onMounted(async () => {
 })
 
 const init = async () => {
-  const res = await axios.get(getCountyListApiUrl())
-  const data = res.data.data
+  const res = await axios.get(mockUrls.countyUiJson)
+  const data = res.data
   if (data && Array.isArray(data) && data.length > 0) {
     dataSource.apiData = data
-    dataSource.options = getCountyTree(data)
+    dataSource.options = data
     dataSource.countyCount = dataSource.options.length
   } else {
     dataSource.apiData = []
@@ -32,11 +32,7 @@ const init = async () => {
 }
 
 const handleChange = (value) => {
-  if (value) {
-    dataSource.selectedText = `${value[0]}`
-  } else {
-    dataSource.selectedText = ""
-  }
+  dataSource.selectedText = value
 }
 
 const handleExportJsonFile = () => {
@@ -56,35 +52,24 @@ const handleExportJsonFile = () => {
         </div>
       </div>
     </template>
-    <el-cascader clearable placeholder="请选择" style="width: 400px;"
-        v-model="dataSource.value"
-        :options="dataSource.options"
-        :props="cascaderProps"
-        @change="handleChange"
+    <el-row :gutter="12">
+      <el-col :span="8">
+        <el-text size="large" style="font-weight: bold;color: #409eff;">区县数量: {{dataSource.countyCount}}</el-text>
+      </el-col>
+      <el-col :span="8">
+        <el-text size="large" style="font-weight: bold;color: #409eff;">选中: {{dataSource.selectedText}}</el-text>
+      </el-col>
+    </el-row>
+    <el-select clearable placeholder="请选择" style="width: 300px;" v-model="dataSource.value" @change="handleChange">
+      <el-option
+        v-for="item in dataSource.options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
     />
-    <el-text size="large" style="font-weight: bold;color: #409eff;">区县数量:{{dataSource.countyCount}}</el-text>
-    <div style="margin-top: 10px;">
-      <el-text size="large" style="font-weight: bold;color: #409eff;">{{dataSource.selectedText}}</el-text>
-    </div>
+    </el-select>
   </el-card>
 </template>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
-.box-card {
-  width: 480px;
-}
 </style>

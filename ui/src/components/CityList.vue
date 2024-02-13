@@ -1,7 +1,7 @@
 <script setup>
 import { reactive,onMounted } from 'vue'
 import axios from 'axios'
-import { getCityTree, getCityListApiUrl, saveJsonFile } from '../utils';
+import {mockUrls} from '../utils';
 
 const dataSource = reactive({
   options: [],
@@ -20,11 +20,11 @@ onMounted(async () => {
 })
 
 const init = async () => {
-  const res = await axios.get(getCityListApiUrl())
-  const data = res.data.data
+  const res = await axios.get(mockUrls.cityUiJson)
+  const data = res.data
   if (data && Array.isArray(data) && data.length > 0) {
     dataSource.apiData = data
-    dataSource.options = getCityTree(data)
+    dataSource.options = data
     dataSource.cityCount = dataSource.options.length
   } else {
     dataSource.apiData = []
@@ -32,11 +32,7 @@ const init = async () => {
 }
 
 const handleChange = (value) => {
-  if (value) {
-    dataSource.selectedText = `${value[0]}`
-  } else {
-    dataSource.selectedText = ""
-  }
+  dataSource.selectedText = value
 }
 
 const handleExportJsonFile = () => {
@@ -50,42 +46,30 @@ const handleExportJsonFile = () => {
  <el-card shadow="always" style="height: 250px;">
     <template #header>
       <div class="card-header">
-        <span>城市列表</span>
+        <span>[城市] 列表</span>
         <div>
-          <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
-          <el-button type="primary" @click="handleExportJsonFile">导出json</el-button>
+          <el-button type="primary">示例</el-button>
         </div>
       </div>
     </template>
-    <el-cascader clearable placeholder="请选择" style="width: 400px;"
-        v-model="dataSource.value"
-        :options="dataSource.options"
-        :props="cascaderProps"
-        @change="handleChange"
+    <el-row :gutter="12">
+      <el-col :span="8">
+        <el-text size="large" style="font-weight: bold;color: #409eff;">城市数量: {{dataSource.cityCount}}</el-text>
+      </el-col>
+      <el-col :span="8">
+        <el-text size="large" style="font-weight: bold;color: #409eff;">选中: {{dataSource.selectedText}}</el-text>
+      </el-col>
+    </el-row>
+    <el-select clearable placeholder="请选择" style="width: 300px;" v-model="dataSource.value" @change="handleChange">
+      <el-option
+        v-for="item in dataSource.options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
     />
-    <el-text size="large" style="font-weight: bold;color: #409eff;">城市数量:{{dataSource.cityCount}}</el-text>
-    <div style="margin-top: 10px;">
-      <el-text size="large" style="font-weight: bold;color: #409eff;">{{dataSource.selectedText}}</el-text>
-    </div>
+    </el-select>
   </el-card>
 </template>
 
 <style scoped>
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.text {
-  font-size: 14px;
-}
-
-.item {
-  margin-bottom: 18px;
-}
-
-.box-card {
-  width: 480px;
-}
 </style>

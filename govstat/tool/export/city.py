@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from .util import Query, Util
+from .rule import LABEL_KEY, VALUE_KEY, NAME_KEY, CODE_KEY, PROVINCE_CODE_KEY
 
 
 def export_city():
@@ -13,48 +14,36 @@ def export_city():
     provinces = q.fetch_many_province()
     provinces_dict = Util.collection_to_key_dict(provinces)
 
-    data = []  # 通用格式，不带code
     data_with_code = []  # 通用格式，带code
-    ui_data = []  # 前端组件格式，不带code
     ui_data_with_code = []  # 前端组件格式，带code
-    
+
     for item in cities:
-        province_code = ''
+        _province = None
         if len(provinces_dict) > 0 and item.get('province_id') in provinces_dict.keys():
-            province_code = provinces_dict.get(item.get('province_id')).get('code')
+            _province = provinces_dict.get(item.get('province_id'))
+        if _province is None:
+            print("找不到省信息")
+            continue
 
-        data_item = {
-            'name': item.get('name'),
-        }
-        data.append(data_item)
-
+        _city = item
         data_item_with_code = {
-            'code': item.get('code'),
-            'name': item.get('name'),
-            'province_code': province_code
+            CODE_KEY: _city.get('code'),
+            NAME_KEY: _city.get('name'),
+            PROVINCE_CODE_KEY: _province.get('code')
         }
         data_with_code.append(data_item_with_code)
 
-        ui_data_item = {
-            'label': item.get('name'),
-            'value': item.get('name'),
-        }
-        ui_data.append(ui_data_item)
-
         ui_data_item_with_code = {
-            'label': item.get('name'),
-            'value': item.get('name'),
-            'code': item.get('code'),
-            'province_code': province_code
+            LABEL_KEY: _city.get('name'),
+            VALUE_KEY: _city.get('name'),
+            CODE_KEY: _city.get('code'),
+            PROVINCE_CODE_KEY: _province.get('code')
         }
         ui_data_with_code.append(ui_data_item_with_code)
 
-    Util.write_json(data, Util.out_path(), 'city.json')
     Util.write_json(data_with_code, Util.out_path(), 'city-code.json')
-    Util.write_csv(data, Util.out_path(), 'city.csv', ['name'])
-    Util.write_csv(data_with_code, Util.out_path(), 'city-code.csv', ['code', 'name', 'province_code'])
+    Util.write_csv(data_with_code, Util.out_path(), 'city-code.csv', [CODE_KEY, NAME_KEY, PROVINCE_CODE_KEY])
 
-    Util.write_json(ui_data, Util.out_path(), 'city-ui.json')
     Util.write_json(ui_data_with_code, Util.out_path(), 'city-ui-code.json')
     q.close()
 

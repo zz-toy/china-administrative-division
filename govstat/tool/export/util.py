@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import csv
 import json
+import typing
 
 from govstat.settings import DB, BASE_DIR
 from govstat.database import DbManager
@@ -17,34 +18,46 @@ class Query:
             self.db.close()
 
     def fetch_many_province(self, columns="*", where=None, params=None) -> tuple:
-        rows = self.db.fetchall("province", columns="*", where=None, params=None)
+        rows = self.db.fetchall("province", columns, where, params)
         if rows is None:
             return ()
         return rows
 
     def fetch_many_city(self, columns="*", where=None, params=None) -> tuple:
-        rows = self.db.fetchall("city", columns="*", where=None, params=None)
+        rows = self.db.fetchall("city", columns, where, params)
         if rows is None:
             return ()
         return rows
 
     def fetch_many_county(self, columns="*", where=None, params=None) -> tuple:
-        rows = self.db.fetchall("county", columns="*", where=None, params=None)
+        rows = self.db.fetchall("county", columns, where, params)
         if rows is None:
             return ()
         return rows
 
     def fetch_many_town(self, columns="*", where=None, params=None) -> tuple:
-        rows = self.db.fetchall("town", columns="*", where=None, params=None)
+        rows = self.db.fetchall("town", columns, where, params)
         if rows is None:
             return ()
         return rows
 
     def fetch_many_village(self, columns="*", where=None, params=None) -> tuple:
-        rows = self.db.fetchall("village", columns="*", where=None, params=None)
+        rows = self.db.fetchall("village", columns, where, params)
         if rows is None:
             return ()
         return rows
+
+    def fetch_xiongan_city(self, columns="*") -> dict:
+        record = self.db.fetchone("city", columns, where="name=%s", params=("雄安新区",))
+        if record is None:
+            return {}
+        return record
+
+    def fetch_baoding_city(self, columns="*") -> dict:
+        record = self.db.fetchone("city", columns, where="name=%s", params=("保定市",))
+        if record is None:
+            return {}
+        return record
 
 
 class Util:
@@ -65,7 +78,7 @@ class Util:
 
     @staticmethod
     def out_path() -> str:
-        return BASE_DIR + '/../dist'
+        return BASE_DIR + '/../dist/govstat'
 
     @staticmethod
     def write_json(data, out_path: str, filename: str):

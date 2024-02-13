@@ -1,58 +1,14 @@
-import FileSaver from 'file-saver'
 
-export const getApiBaseUrl = () => {
-    console.log(`${window.location.protocol}//${window.location.hostname}:6800`)
-    return `${window.location.protocol}//${window.location.hostname}:6800`
-}
+import provinceUiJsonUrl from '../../../dist/govstat/province-ui-code.json?url'
+import cityUiJsonUrl from '../../../dist/govstat/city-ui-code.json?url'
+import countyUiJsonUrl from '../../../dist/govstat/county-ui-code.json?url'
+import pcUiJsonUrl from '../../../dist/govstat/pc-ui.json?url'
+import pccUiJsonUrl from '../../../dist/govstat/pcc-ui.json?url'
 
-export const getPcListApiUrl = () => {
-    return `${getApiBaseUrl()}/pc/list`
-}
-
-export const getPccListApiUrl = () => {
-    return `${getApiBaseUrl()}/pcc/list`
-}
-
-export const getProvinceListApiUrl = () => {
-    return `${getApiBaseUrl()}/province/list`
-}
-
-export const getCityListApiUrl = () => {
-    return `${getApiBaseUrl()}/city/list`
-}
-
-export const getCountyListApiUrl = () => {
-    return `${getApiBaseUrl()}/county/list`
-}
-
-export const saveJsonFile = (data, filename) => {
-    if (!data || !filename) {
-        return
-    }
-
-    const blob = new Blob([JSON.stringify(data, null, 2)], {
-        type: 'application/json;charset=utf-8'
-    })
-
-    try {
-        FileSaver.saveAs(blob, filename)
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const saveCsvFile = (data, filename) => {
-    if (!data || !filename) {
-        return
-    }
-
-    const blob = new Blob([data], {
-        type: "data:text/csv;charset=utf-8,\ufeff"
-    })
-
-    try {
-        FileSaver.saveAs(blob, filename)
-    } catch (e) {
-        console.log(e)
-    }
+export const mockUrls = {
+     provinceUiJson: provinceUiJsonUrl,
+     cityUiJson: cityUiJsonUrl,
+     countyUiJson: countyUiJsonUrl,
+     pcUiJson: pcUiJsonUrl,
+     pccUiJson:pccUiJsonUrl
 }

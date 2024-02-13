@@ -1,3 +1,123 @@
+import FileSaver from 'file-saver'
+
+export const getApiBaseUrl = () => {
+    console.log(`${window.location.protocol}//${window.location.hostname}:6800`)
+    return `${window.location.protocol}//${window.location.hostname}:6800`
+}
+
+export const getPcListApiUrl = () => {
+    return `${getApiBaseUrl()}/pc/list`
+}
+
+export const getPccListApiUrl = () => {
+    return `${getApiBaseUrl()}/pcc/list`
+}
+
+export const getProvinceListApiUrl = () => {
+    return `${getApiBaseUrl()}/province/list`
+}
+
+export const getCityListApiUrl = () => {
+    return `${getApiBaseUrl()}/city/list`
+}
+
+export const getCountyListApiUrl = () => {
+    return `${getApiBaseUrl()}/county/list`
+}
+
+// 单级别数据 ====================================================
+
+export const getProvinceCsvList = (list = []) => {
+    if (!list || !Array.isArray(list) || list.length === 0) {
+        return []
+    }
+
+    const provinceCsvList = []
+
+    list.forEach((province) => {
+        provinceCsvList.push([province.code, `"${province.name}"`])
+    })
+
+    return buildCsv(provinceCsvList, ["code", "name"])
+}
+
+export const getCityCsvList = (list = []) => {
+    if (!list || !Array.isArray(list) || list.length === 0) {
+        return []
+    }
+
+    const cityCsvList = []
+
+    list.forEach((city) => {
+        cityCsvList.push([city.code, `"${city.name}"`, city.province_code])
+    })
+
+    return buildCsv(cityCsvList,["code", "name", "province_code"])
+}
+
+export const getCountyCsvList = (list = []) => {
+    if (!list || !Array.isArray(list) || list.length === 0) {
+        return []
+    }
+
+    const countyCsvList = []
+
+    list.forEach((county) => {
+        countyCsvList.push([county.code, `"${county.name}"`, county.province_code, county.city_code])
+    })
+
+    return buildCsv(countyCsvList, ["code", "name", "province_code", "city_code"])
+}
+
+export const buildCsv = (data = [], header = []) => {
+    // '\n' 表示一行的结束，','表示数据依次放在新的单元格
+	let res = ""
+    if (header && Array.isArray(header) && header.length > 0) {
+        res = header.join(',')+"\n"
+    }
+
+    if (data && Array.isArray(data) && data.length > 0) {
+        res += data.map((item) => {
+			return item.join(',')
+		}).join("\n");
+    }
+
+	// encodeURIComponent解决中文乱码
+    return res;
+}
+
+export const saveJsonFile = (data, filename) => {
+    if (!data || !filename) {
+        return
+    }
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: 'application/json;charset=utf-8'
+    })
+
+    try {
+        FileSaver.saveAs(blob, filename)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const saveCsvFile = (data, filename) => {
+    if (!data || !filename) {
+        return
+    }
+
+    const blob = new Blob([data], {
+        type: "data:text/csv;charset=utf-8,\ufeff"
+    })
+
+    try {
+        FileSaver.saveAs(blob, filename)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 // 单级别数据 ====================================================
 
 export const getProvinceTree = (list = []) => {

@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from .util import Query, Util
+from .rule import LABEL_KEY, VALUE_KEY, NAME_KEY, CODE_KEY
 
 
 def export_province():
@@ -15,33 +16,33 @@ def export_province():
     ui_data_with_code = []  # 前端组件格式，带code
     for item in provinces:
         data_item = {
-            'name': item.get('name'),
+            NAME_KEY: item.get('name'),
         }
         data.append(data_item)
 
         data_item_with_code = {
-            'code': item.get('code'),
-            'name': item.get('name'),
+            CODE_KEY: item.get('code'),
+            NAME_KEY: item.get('name'),
         }
         data_with_code.append(data_item_with_code)
 
         ui_data_item = {
-            'label': item.get('name'),
-            'value': item.get('name'),
+            LABEL_KEY: item.get('name'),
+            VALUE_KEY: item.get('name'),
         }
         ui_data.append(ui_data_item)
 
         ui_data_item_with_code = {
-            'label': item.get('name'),
-            'value': item.get('name'),
-            'code': item.get('code'),
+            LABEL_KEY: item.get('name'),
+            VALUE_KEY: item.get('name'),
+            CODE_KEY: item.get('code'),
         }
         ui_data_with_code.append(ui_data_item_with_code)
 
     Util.write_json(data, Util.out_path(), 'province.json')
     Util.write_json(data_with_code, Util.out_path(), 'province-code.json')
-    Util.write_csv(data, Util.out_path(), 'province.csv', ['name'])
-    Util.write_csv(data_with_code, Util.out_path(), 'province-code.csv', ['code', 'name'])
+    Util.write_csv(data, Util.out_path(), 'province.csv', [NAME_KEY])
+    Util.write_csv(data_with_code, Util.out_path(), 'province-code.csv', [CODE_KEY, NAME_KEY])
 
     Util.write_json(ui_data, Util.out_path(), 'province-ui.json')
     Util.write_json(ui_data_with_code, Util.out_path(), 'province-ui-code.json')

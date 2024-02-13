@@ -34,7 +34,7 @@ class TownSpider(Spider):
                 "colorize": False,
                 "serialize": True,
                 "encoding": 'utf8',
-                "rotation": "200 MB",
+                "rotation": "500 MB",
                 "enqueue": True
             }
         ])

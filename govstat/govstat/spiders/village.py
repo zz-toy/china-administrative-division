@@ -34,7 +34,7 @@ class VillageSpider(Spider):
                 "colorize": False,
                 "serialize": True,
                 "encoding": 'utf8',
-                "rotation": "200 MB",
+                "rotation": "2048 MB",
                 "enqueue": True
             }
         ])
