@@ -4,7 +4,7 @@
 - [python downloads](https://www.python.org/downloads/)
 - [conda install](https://anaconda.org/conda-forge/pymysql)
 
-## 介绍
+## 描述
 爬虫项目，用来抓取省市区乡镇村庄数据
 
 一共5个爬虫，分别爬取各级数据并入库:
@@ -14,30 +14,17 @@
 - python launch_town.py
 - python launch_village.py
 
-### 开发环境
+## 环境搭建
 ```shell
 # 创建虚拟环境
 conda create --name china-administrative-division
-```
 
-### 依赖项
-```shell
-conda install python=3.10
-conda install -c conda-forge scrapy==2.9.0
-conda install -c conda-forge pymysql
-conda install "PyMySQL[rsa]"
-conda install scrapy-redis
-pip install redis
-pip install Twisted==22.10.0
-conda install fake-useragent
-```
-### 安装依赖
-```shell
+# 安装依赖
 pip install -r requirements.txt
 ```
 
 ## 如何使用
-### 爬取命令
+### 抓取命令
 ```shell
 python launch_province.py
 python launch_city.py
