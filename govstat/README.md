@@ -48,5 +48,5 @@ python launch_village.py
 
 ### 导出数据
 ```shell
-python _export/export.py
+python tool/export.py
 ```
