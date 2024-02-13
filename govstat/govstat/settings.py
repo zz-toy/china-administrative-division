@@ -98,7 +98,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 
 import datetime
 
-LOG_FILE = 'logs/scrapy_{}.log'.format(datetime.datetime.now().strftime("%Y-%m-%d"))
+LOG_FILE = f'logs/scrapy_{datetime.datetime.now().strftime("%Y-%m-%d")}.log'
+
+# 抓取数据的年份
+GOVSTAT_YEAR = 2023
 
 # Mysql
 DB = {
@@ -106,10 +109,11 @@ DB = {
     "PORT": 3400,
     "USERNAME": "root",
     "PASSWORD": "123456",
-    "DATABASE": "govstat",
+    "DATABASE": f"govstat_{GOVSTAT_YEAR}",
     "CHARSET": "utf8mb4"
 }
 
+# 批量插入mysql数量限制
 BATCH_INSERT_SIZE = 100
 
 # Redis

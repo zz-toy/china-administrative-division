@@ -1,10 +1,10 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE DATABASE IF NOT EXISTS `govstat` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `govstat_2023` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE govstat;
+USE govstat_2023;
 
-DROP TABLE IF EXISTS `province` ;
+DROP TABLE IF EXISTS `province`;
 CREATE TABLE `province` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '省名称',
@@ -21,7 +21,7 @@ CREATE TABLE `province` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='省份表';
 
-DROP TABLE IF EXISTS `city` ;
+DROP TABLE IF EXISTS `city`;
 CREATE TABLE `city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '城市名称',
@@ -38,7 +38,7 @@ CREATE TABLE `city` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='城市表';
 
-DROP TABLE IF EXISTS `county` ;
+DROP TABLE IF EXISTS `county`;
 CREATE TABLE `county` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '县名称',
@@ -56,7 +56,7 @@ CREATE TABLE `county` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='县城表';
 
-DROP TABLE IF EXISTS `town` ;
+DROP TABLE IF EXISTS `town`;
 CREATE TABLE `town` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '乡镇名称',
@@ -75,7 +75,7 @@ CREATE TABLE `town` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='乡镇表';
 
-DROP TABLE IF EXISTS `village` ;
+DROP TABLE IF EXISTS `village`;
 CREATE TABLE `village` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '村庄名称',
@@ -98,8 +98,8 @@ CREATE TABLE `village` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-TRUNCATE TABLE `province` ;
-TRUNCATE TABLE `city` ;
-TRUNCATE TABLE `county` ;
-TRUNCATE TABLE `town` ;
-TRUNCATE TABLE `village` ;
+TRUNCATE TABLE `province`;
+TRUNCATE TABLE `city`;
+TRUNCATE TABLE `county`;
+TRUNCATE TABLE `town`;
+TRUNCATE TABLE `village`;

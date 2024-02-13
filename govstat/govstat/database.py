@@ -10,9 +10,9 @@ class DbManager:
         if db_config is None:
             db_config = {}
         self.db_config = db_config
-        self.__connect()
+        self._connect()
 
-    def __connect(self):
+    def _connect(self):
         if self.connection is None:
             self.connection = pymysql.connect(
                 host=self.db_config.get('HOST'),
@@ -96,7 +96,6 @@ class DbManager:
         column_list = column.split(',')
         values = ', '.join(['%s'] * len(column_list))
         sql = f"INSERT INTO {table_name} ({column}) VALUES ({values})"
-        print('sql:', sql)
         with self.connection.cursor() as cursor:
             try:
                 cursor.executemany(sql, data)

@@ -38,7 +38,7 @@ class ProvinceSpider(Spider):
             }
         ])
 
-        start_urls = ["https://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/2023/index.html"]
+        start_urls = [f"https://www.stats.gov.cn/sj/tjbz/tjyqhdmhcxhfdm/{self.settings.get('GOVSTAT_YEAR')}/index.html"]
         for url in start_urls:
             yield Request(url, callback=self.parse)
 

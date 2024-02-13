@@ -9,7 +9,7 @@ DevServer:
   Port: 7001
   HealthPath: /health
 Mysql:
-  Datasource: "root:123456@tcp(192.168.200.253:3400)/govstat?charset=utf8mb4&parseTime=True&loc=Local"
+  Datasource: "root:123456@tcp(192.168.200.253:3400)/govstat_2023?charset=utf8mb4&parseTime=True&loc=Local"
 
 Log:
   ServiceName: alice-api
