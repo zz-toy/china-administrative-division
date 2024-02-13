@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from tool.export.util import Query, Util
+from .util import Query, Util
 
 
 def export_province():

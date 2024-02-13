@@ -1,9 +1,13 @@
 # -*- coding:utf-8 -*-
-from tool.export.province import export_province
-from tool.export.city import export_city
-from tool.export.county import export_county
-from tool.export.pc import export_pc
-from tool.export.pcc import export_pcc
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from export.province import export_province
+from export.city import export_city
+from export.county import export_county
+from export.pc import export_pc
+from export.pcc import export_pcc
 
 
 def main():

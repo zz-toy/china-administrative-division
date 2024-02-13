@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from tool.export.util import Query,Util
+from .util import Query,Util
 
 
 def export_pc():
@@ -19,32 +19,37 @@ def export_pc():
 
     if len(cities) > 0:
         for item in cities:
-            if item.get('province_id') in cities_province_id_dict.keys():
-                continue
-
             data_item = {
                 'name': item.get('name'),
             }
-            cities_province_id_dict[item.get('province_id')] = data_item
+            if item.get('province_id') not in cities_province_id_dict.keys():
+                cities_province_id_dict[item.get('province_id')] = data_item
+            
 
             data_item_with_code = {
                 'name': item.get('name'),
                 'code': item.get('code'),
             }
-            cities_province_id_dict_with_code[item.get('province_id')] = data_item_with_code
+            if item.get('province_id') not in cities_province_id_dict_with_code.keys():
+                cities_province_id_dict_with_code[item.get('province_id')] = data_item_with_code
+            
 
             ui_data_item = {
                 'label': item.get('name'),
                 'value': item.get('name'),
             }
-            cities_province_id_dict_ui[item.get('province_id')] = ui_data_item
+            if item.get('province_id') not in cities_province_id_dict_ui.keys():
+                 cities_province_id_dict_ui[item.get('province_id')] = ui_data_item
+           
 
             ui_data_item_with_code = {
                 'label': item.get('name'),
                 'value': item.get('name'),
                 'code': item.get('code'),
             }
-            cities_province_id_dict_ui_with_code[item.get('province_id')] = ui_data_item_with_code
+            if item.get('province_id') not in cities_province_id_dict_ui_with_code.keys():
+                 cities_province_id_dict_ui_with_code[item.get('province_id')] = ui_data_item_with_code
+            
 
     data = []  # 通用格式，不带code
     data_with_code = []  # 通用格式，带code
@@ -56,7 +61,6 @@ def export_pc():
              'name': item.get('name'),
              'children': []
         }
-
         if item.get('id') in cities_province_id_dict.keys():
             data_item['children'].append(cities_province_id_dict.get(item.get('id')))
 

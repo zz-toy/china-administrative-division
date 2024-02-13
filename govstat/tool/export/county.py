@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from tool.export.util import Query,Util
+from .util import Query,Util
 
 
 def export_county():
@@ -19,6 +19,7 @@ def export_county():
     data_with_code = []  # 通用格式，带code
     ui_data = []  # 前端组件格式，不带code
     ui_data_with_code = []  # 前端组件格式，带code
+    
     for item in counties:
         province_code = ''
         city_code = ''

@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-from tool.export.util import Query, Util
+from .util import Query, Util
 
 
 def export_city():
@@ -12,11 +12,12 @@ def export_city():
 
     provinces = q.fetch_many_province()
     provinces_dict = Util.collection_to_key_dict(provinces)
-    print('provinces_dict:', provinces_dict)
+
     data = []  # 通用格式，不带code
     data_with_code = []  # 通用格式，带code
     ui_data = []  # 前端组件格式，不带code
     ui_data_with_code = []  # 前端组件格式，带code
+    
     for item in cities:
         province_code = ''
         if len(provinces_dict) > 0 and item.get('province_id') in provinces_dict.keys():

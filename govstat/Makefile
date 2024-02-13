@@ -17,7 +17,7 @@ create-requirements:
 	@conda list -e > requirements.txt
 
 import-sql:
-    @mysql -u root -p 123456 < govstat.sql
+	@mysql -u root -p 123456 < govstat.sql
 
 .PHONY: export
 export:
