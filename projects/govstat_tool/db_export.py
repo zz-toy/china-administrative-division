@@ -11,7 +11,7 @@ from common.export.city_export import CityExport
 from common.export.county_export import CountyExport
 from common.export.pc_export import PcExport
 from common.export.pcc_export import PccExport
-from common.export.export import DataSource
+from common.export.export import DBDataSource
 from common.helper import Helper
 from common.db.query import Query
 from govstat.govstat.settings import DB
@@ -23,10 +23,10 @@ if __name__ == '__main__':
     q = Query(DB)
     df = pd.DataFrame(q.fetch_many_town_join())
 
-    data_source = DataSource(df)
+    data_source = DBDataSource(df)
 
-    province_export_export = ProvinceExport(data_source, out_path)
-    province_export_export.export()
+    province_export = ProvinceExport(data_source, out_path)
+    province_export.export()
 
     city_export = CityExport(data_source, out_path)
     city_export.export()

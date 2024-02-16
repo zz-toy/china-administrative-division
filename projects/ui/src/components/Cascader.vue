@@ -36,8 +36,12 @@ const getRemoteData = async () => {
   if (data && Array.isArray(data) && data.length > 0) {
     dataSource.remoteData = data
     dataSource.options = data
+  } else if (data && Object.prototype.toString.call(data) === "[object Object]" && data.hasOwnProperty('data')) {
+    dataSource.remoteData = data.data
+    dataSource.options = data.data
   } else {
-    dataSource.apiData = []
+    dataSource.remoteData = []
+    dataSource.options = []
   }
 }
 

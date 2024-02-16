@@ -3,6 +3,8 @@ import csv
 import json
 import os.path
 import itertools
+
+from common.export.rule import CODE_KEY, CHILDREN_KEY
 from common.settings import BASE_DIR
 
 
@@ -66,3 +68,24 @@ class Helper:
     @staticmethod
     def dist_path():
         return f'{BASE_DIR}/../dist'
+
+    @staticmethod
+    def to_zn_data(data: list = None):
+        if data is None:
+            data = []
+
+        for item in data:
+            if isinstance(item, dict):
+                if CODE_KEY in item.keys():
+                    del item[CODE_KEY]
+                if CHILDREN_KEY in item.keys() and isinstance(item.get(CHILDREN_KEY), list):
+                    [Helper.to_zn_data(_item) for _item in item]
+
+    @staticmethod
+    def zn_json_data(data: list = None) -> dict:
+        Helper.to_zn_data(data)
+        return {
+            "errcode": 200,
+            "errmsg": "success",
+            "data": data
+        }

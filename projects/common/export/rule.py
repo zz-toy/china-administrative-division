@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 MUNICIPALITIES = ['北京市', '天津市', '上海市', '重庆市']
+SUPPLEMENT_CITY = ['省直辖县级行政区划', '自治区直辖县级行政区划']
 XIONGAN_COUNTIES = ['雄县', '安新县', '容城县']
 FILTER_PROVINCES = ['苏鲁交界', '香港', '澳门', '台湾省']
 
@@ -13,6 +14,8 @@ INNER_COUNTY_NAME_KEY = 'county_name'
 INNER_COUNTY_CODE_KEY = 'county_code'
 INNER_TOWN_NAME_KEY = 'town_name'
 INNER_TOWN_CODE_KEY = 'town_code'
+
+INNER_COUNTY_CHILD_URL = 'county_child_url'
 
 """导出文件使用，可变"""
 LABEL_KEY = 'label'
@@ -36,7 +39,6 @@ COUNTY_COLUMNS = [INNER_COUNTY_NAME_KEY, INNER_COUNTY_CODE_KEY]
 TOWN_COLUMNS = [INNER_TOWN_NAME_KEY, INNER_TOWN_CODE_KEY]
 PC_COLUMNS = [x for ll in [PROVINCE_COLUMNS, CITY_COLUMNS] for x in ll]
 PCC_COLUMNS = [x for ll in [PROVINCE_COLUMNS, CITY_COLUMNS, COUNTY_COLUMNS] for x in ll]
-PCCT_COLUMNS = [x for ll in [PROVINCE_COLUMNS, CITY_COLUMNS, COUNTY_COLUMNS, TOWN_COLUMNS] for x in ll]
 ALL_COLUMNS = [x for ll in [PROVINCE_COLUMNS, CITY_COLUMNS, COUNTY_COLUMNS, TOWN_COLUMNS] for x in ll]
 ALL_CODE_COLUMNS = ALL_COLUMNS[1::2]
 
@@ -44,6 +46,7 @@ ALL_CODE_COLUMNS = ALL_COLUMNS[1::2]
 PROVINCE_FLATTEN_JSON_FILENAME = 'province-flatten.json'
 PROVINCE_FLATTEN_CSV_FILENAME = 'province-flatten.csv'
 PROVINCE_CASCADE_JSON_FILENAME = 'province-cascade.json'
+PROVINCE_ZN_JSON_FILENAME = 'province-zn.json'
 
 # city 导出文件配置
 CITY_FLATTEN_JSON_FILENAME = 'city-flatten.json'
@@ -57,10 +60,11 @@ COUNTY_CASCADE_JSON_FILENAME = 'county-cascade.json'
 
 # province_city 导出文件配置
 PC_JSON_FILENAME = 'pc.json'
+PC_ZN_JSON_FILENAME = 'pc-zn.json'
 
 # province_city_county 导出文件配置
 PCC_JSON_FILENAME = 'pcc.json'
-
+PCC_ZN_JSON_FILENAME = 'pcc-zn.json'
 
 # province_city_county_town 导出文件配置
 PCCT_JSON_FILENAME = 'pcct.json'
@@ -68,23 +72,6 @@ PCCT_JSON_FILENAME = 'pcct.json'
 
 def is_municipality(province_name: str) -> bool:
     return province_name in MUNICIPALITIES
-
-
-def if_filter_province(name: str) -> bool:
-    return name in ['苏鲁交界', '香港', '澳门', '台湾省']
-
-
-def filter_city(province: dict, city: dict) -> dict | None:
-    """直辖市city处理"""
-    if province is None or city is None:
-        return city
-
-    if province.get(INNER_PROVINCE_NAME_KEY) in MUNICIPALITIES:
-        return {
-            INNER_CITY_CODE_KEY: province.get(INNER_PROVINCE_CODE_KEY),
-            INNER_CITY_NAME_KEY: province.get(INNER_PROVINCE_NAME_KEY),
-        }
-    return city
 
 
 def filter_county(city: dict, county: dict) -> dict | None:
@@ -100,49 +87,3 @@ def filter_county(city: dict, county: dict) -> dict | None:
             INNER_COUNTY_NAME_KEY: city.get(INNER_PROVINCE_NAME_KEY),
         }
     return county
-
-
-def province_code(field) -> str:
-    return str(field)[:2]
-
-
-def city_code(field) -> str:
-    return str(field)[:4]
-
-
-def county_code(field) -> str:
-    return str(field)[:6]
-
-
-def town_code(field) -> str:
-    return str(field)[:9]
-
-
-def is_belong_to_xiongan(county: dict) -> bool:
-    """county属不属于雄安新区"""
-    if county is None:
-        return False
-    if len(county) == 0:
-        return False
-
-    return county.get('name') in XIONGAN_COUNTIES
-
-
-def is_xiongan_city(city: dict) -> bool:
-    """是不是雄安新区"""
-    if city is None:
-        return False
-    if len(city) == 0:
-        return False
-
-    return city.get('name') == "雄安新区"
-
-
-def if_city_supplement(city: dict):
-    """city下级是否补进，一般对应county为地级市"""
-    if city is None:
-        return False
-    if len(city) == 0:
-        return False
-
-    return city.get('name') in ['省直辖县级行政区划', '自治区直辖县级行政区划']

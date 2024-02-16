@@ -2,7 +2,7 @@
 
 from .rule import NAME_KEY, CODE_KEY, LABEL_KEY, VALUE_KEY, CHILDREN_KEY
 from .rule import INNER_COUNTY_CODE_KEY, INNER_COUNTY_NAME_KEY, INNER_PROVINCE_CODE_KEY, INNER_PROVINCE_NAME_KEY, \
-    INNER_CITY_NAME_KEY, INNER_CITY_CODE_KEY, is_municipality, filter_city, PROVINCE_NAME_KEY, PROVINCE_CODE_KEY, \
+    INNER_CITY_NAME_KEY, INNER_CITY_CODE_KEY, is_municipality, PROVINCE_NAME_KEY, PROVINCE_CODE_KEY, \
     CITY_NAME_KEY, CITY_CODE_KEY
 
 
@@ -59,28 +59,22 @@ def build_county(county_list: list = None, params: tuple = None) -> tuple:
         _county_name = item.get(INNER_COUNTY_NAME_KEY)
         _county_code = item.get(INNER_COUNTY_CODE_KEY)
         _is_municipality = is_municipality(_province_name)
-        tmp_province = {
+        _province = {
             INNER_PROVINCE_NAME_KEY: _province_name,
             INNER_PROVINCE_CODE_KEY: _province_code
         }
 
-        tmp_city = {
+        _city = {
             INNER_CITY_NAME_KEY: _city_name,
             INNER_CITY_CODE_KEY: _city_code
         }
 
-        _city = filter_city(tmp_province, tmp_city)
-        if _city is None or len(_city) == 0:
-            print("filter_city 失败")
-            continue
-
-        _city_code = _city.get(INNER_CITY_CODE_KEY)
         _county = {
             INNER_COUNTY_CODE_KEY: _county_code,
             INNER_COUNTY_NAME_KEY: _county_name
         }
 
-        flatten_item = to_flatten_county_item(_county, tmp_province, _city)
+        flatten_item = to_flatten_county_item(_county, _province, _city)
         if _city_code not in flatten_dict_data.keys():
             flatten_dict_data[_city_code] = []
         flatten_dict_data[_city_code].append(flatten_item)

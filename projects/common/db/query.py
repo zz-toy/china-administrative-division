@@ -66,12 +66,36 @@ class Query:
         	d.NAME AS county_name,
         	d.full_code AS county_code,
         	a.NAME AS town_name,
-        	a.full_code AS town_code 
+        	c.child_url AS county_child_url,
+        	a.full_code AS town_code
         FROM
         	town AS a
         	LEFT JOIN province AS b ON a.province_id = b.id
         	LEFT JOIN city AS c ON a.city_id = c.id
         	LEFT JOIN county AS d ON a.county_id = d.id"""
+        with self.db.connection.cursor() as cursor:
+            try:
+                cursor.execute(sql)
+                return cursor.fetchall()
+            except Exception as e:
+                print(e)
+                return None
+
+    def fetch_many_county_join(self) -> tuple | None:
+        """字段顺序不能乱"""
+        sql = """
+            SELECT
+        	b.NAME AS province_name,
+        	b.full_code AS province_code,
+        	c.NAME AS city_name,
+        	c.full_code AS city_code,
+        	a.NAME AS county_name,
+        	a.full_code AS county_code,
+        	a.child_url AS county_child_url
+        FROM
+        	county AS a
+        	LEFT JOIN province AS b ON a.province_id = b.id
+        	LEFT JOIN city AS c ON a.city_id = c.id"""
         with self.db.connection.cursor() as cursor:
             try:
                 cursor.execute(sql)

@@ -5,7 +5,7 @@ from .export import ABCExport
 from .province import build_province
 from .city import build_city
 from .county import build_county
-from .rule import PCC_JSON_FILENAME
+from .rule import PCC_JSON_FILENAME, PCC_ZN_JSON_FILENAME
 
 
 class PccExport(ABCExport):
@@ -15,3 +15,8 @@ class PccExport(ABCExport):
         res = build_province(province_list=self.data_source.province_list(), params=(build_city_res[1],))
 
         Helper.write_json(res[1], self.dist_path, PCC_JSON_FILENAME)
+        self.export_zn(res[1])
+        print('=======================')
+
+    def export_zn(self, data):
+        Helper.write_json(Helper.zn_json_data(data), self.zn_dist_path, PCC_ZN_JSON_FILENAME)
