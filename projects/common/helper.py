@@ -4,11 +4,15 @@ import json
 import os.path
 import itertools
 
-from common.export.rule import CODE_KEY, CHILDREN_KEY
+from common.export.rule import CODE_KEY, CHILDREN_KEY, LABEL_KEY, LEVEL_TOP, VALUE_KEY, LEVEL_SECOND
 from common.settings import BASE_DIR
 
 
 class Helper:
+    @staticmethod
+    def dist_path():
+        return f'{BASE_DIR}/../dist'
+
     @staticmethod
     def collection_to_key_dict(collection: tuple | list, key: str = 'id') -> dict:
         if collection is None:
@@ -66,20 +70,40 @@ class Helper:
         return list(itertools.chain.from_iterable(list(data.values())))
 
     @staticmethod
-    def dist_path():
-        return f'{BASE_DIR}/../dist'
+    def filter_province(data: str) -> str:
+        if data[-1] == "省":
+            return data.rstrip("省")
+        if data[-1] == "市":
+            return data.rstrip("市")
+
+        return data
 
     @staticmethod
-    def to_zn_data(data: list = None):
+    def filter_city(data: str) -> str:
+        if data[-1] == "市":
+            return data.rstrip("市")
+
+        return data
+
+    @staticmethod
+    def to_zn_data(data: list = None, level: int = LEVEL_TOP):
         if data is None:
             data = []
 
         for item in data:
             if isinstance(item, dict):
+                if level == LEVEL_TOP:
+                    item[LABEL_KEY] = Helper.filter_province(item[LABEL_KEY])
+                    item[VALUE_KEY] = Helper.filter_province(item[VALUE_KEY])
+                elif level == LEVEL_SECOND:
+                    item[LABEL_KEY] = Helper.filter_city(item[LABEL_KEY])
+                    item[VALUE_KEY] = Helper.filter_city(item[VALUE_KEY])
+
                 if CODE_KEY in item.keys():
                     del item[CODE_KEY]
+
                 if CHILDREN_KEY in item.keys() and isinstance(item.get(CHILDREN_KEY), list):
-                    [Helper.to_zn_data(_item) for _item in item]
+                    Helper.to_zn_data(data=item.get(CHILDREN_KEY), level=level+1)
 
     @staticmethod
     def zn_json_data(data: list = None) -> dict:

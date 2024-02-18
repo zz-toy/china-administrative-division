@@ -27,11 +27,11 @@ class DataSource:
 
     def province_df(self):
         """去重"""
-        return self.df.loc[:, PROVINCE_COLUMNS].drop_duplicates()
+        return self.df.loc[:, PROVINCE_COLUMNS].drop_duplicates(subset=[INNER_PROVINCE_NAME_KEY])
 
     def city_df(self):
         """去重"""
-        return self.df.loc[:, CITY_COLUMNS].drop_duplicates()
+        return self.df.loc[:, CITY_COLUMNS].drop_duplicates(subset=[INNER_CITY_NAME_KEY])
 
     def county_df(self):
         """去重"""
@@ -39,11 +39,12 @@ class DataSource:
 
     def pc_df(self):
         """去重"""
-        return self.df.loc[:, PC_COLUMNS].drop_duplicates()
+        return self.df.loc[:, PC_COLUMNS].drop_duplicates(subset=[INNER_PROVINCE_NAME_KEY, INNER_CITY_NAME_KEY])
 
     def pcc_df(self):
         """去重"""
-        return self.df.loc[:, PCC_COLUMNS].drop_duplicates()
+        return self.df.loc[:, PCC_COLUMNS].drop_duplicates(subset=[INNER_PROVINCE_NAME_KEY, INNER_CITY_NAME_KEY,
+                                                                   INNER_COUNTY_NAME_KEY])
 
     def province_list(self) -> list:
         return self.province_df().to_dict(orient='records')

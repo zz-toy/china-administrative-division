@@ -19,7 +19,7 @@ const cascaderComponentProps = ref([
 
 
 const znComponentProps = ref([
-  {title: "[省] 列表", url: znMockUrl.pcUrl},
+  {title: "[省] 列表", url: znMockUrl.provinceUrl},
   {title: "[省市] 列表", url: znMockUrl.pcUrl},
   {title: "[省市区] 列表", url: znMockUrl.pccUrl},
 ])
